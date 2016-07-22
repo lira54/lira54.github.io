@@ -2,22 +2,34 @@
 <html>
 <title>Hello Strapdown</title>
 
-<xmp theme="united" style="display:none;">
-# Markdown text goes in here
+<!-- <xmp id="md_content" theme="united" style="display:none;">
+</xmp> -->
 
-## Новость 1
+<!-- <script src="strapdown/v/0.2/strapdown.js"></script> -->
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-et dolore magna aliqua.
+<script type = "text/javascript" language = "JavaScript">
+// $.ajax({url:"x.html",context: document.body, success: function(response){
+//         $("#yourDiv").html(response);
+// });
 
-## Новость 2
-06.07.2016
+var xhr= new XMLHttpRequest();
+xhr.open('GET', 'news.md', true);
+xhr.onreadystatechange= function() {
+    if (this.readyState!==4) return;
+    if (this.status!==200) return; // or whatever error handling you want
+    console.log(this.responseText);
+    // document.getElementById('md_content').innerHTML= this.responseText;
+    var btn = document.createElement("xmp");       // Create a <button> element
+    btn.setAttribute("theme", "united");
+    btn.setAttribute("style", "display:none;");
+    btn.innerHTML = this.responseText;
+    document.body.appendChild(btn);
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-culpa qui officia deserunt mollit anim id est laborum.
-</xmp>
-
-<script src="strapdown/v/0.2/strapdown.js"></script>
+    var fileref=document.createElement('script');
+		fileref.setAttribute("type","text/javascript");
+		fileref.setAttribute("src", "strapdown/v/0.2/strapdown.js");
+    document.body.appendChild(fileref);
+};
+xhr.send();
+</script>
 </html>
