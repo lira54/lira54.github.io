@@ -1,7 +1,17 @@
-ymaps.ready(loadPolygons);
+Storage.prototype.setObject = function(key, value) {
+    this.setItem(key, JSON.stringify(value));
+}
+
+Storage.prototype.getObject = function(key) {
+    var value = this.getItem(key);
+    return value && JSON.parse(value);
+}
+
+ymaps.ready(init);
 var myMap;
 var myPolyline;
 var gPolygons;
+var gYmapsPolygon;
 
 function loadPolygons() {
     console.log('loadPolygons()');
@@ -12,7 +22,7 @@ function loadPolygons() {
         console.log(xmlhttp.responseText);
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             gPolygons = JSON.parse(xmlhttp.responseText);
-            init();
+//             init();
         }
     };
     xmlhttp.open("GET", url, true);
@@ -25,7 +35,7 @@ function polyFromMetadata(pMetadata) {
         '<br>Статус: ' + pMetadata.status;
     var stroke = pMetadata.isAvailable ? '#00FF00' : '#FF0000';
     var fill = pMetadata.isAvailable ? '#00ff0015' : '#ff660015';
-    return new ymaps.Polygon(
+    var poly = new ymaps.Polygon(
         pMetadata.vertices, {
             balloonContent: bCont,
             hintContent: bCont
@@ -39,65 +49,161 @@ function polyFromMetadata(pMetadata) {
         }
     );
 
+    return poly;
+
 }
 
-function addPoly() {
-    var pMetadata = {
-        "number": gPolygons.length,
-        "title": "участок #" + gPolygons.length,
-        "status": "Свободен",
+function savePolygonArray() {
+    // Put the object into storage
+    localStorage.setObject('gPolygons', gPolygons);
+}
+
+function loadPolygonArray() {
+    gPolygons = localStorage.getObject('gPolygons') || [];
+}
+
+function getCurrentPoly() {
+    var value = document.getElementById('polydata').value;
+    return value && JSON.parse(value);
+}
+
+function setCurrentPoly(obj) {
+    document.getElementById('polydata').value = JSON.stringify(obj, null, '  ');
+}
+
+function updatePoly() {
+    var coords = gYmapsPolygon.geometry.getCoordinates();
+    var poly = getCurrentPoly();
+    poly.vertices = coords;
+    setCurrentPoly(poly);
+}
+
+function checkPolyFilled(poly) {
+    return poly && poly.number > 0
+//         && '' !== poly.status
+        && '' !== poly.area
+        && poly.vertices && poly.vertices.length > 0 && poly.vertices[0].length > 3;
+}
+
+function onNextPoly() {
+    var curPoly = getCurrentPoly();
+    if (curPoly && curPoly != {}) {
+        updatePoly(); // in case we deleted a vertex -- it doesn't cause an update
+        if (!checkPolyFilled(curPoly)) {
+            alert('Poly not filled!');
+            return;
+        }
+        gPolygons.push(curPoly);
+        savePolygonArray();
+        console.log('Saved poly: ' + JSON.stringify(curPoly, null, '  '));
+    } else {
+        console.log('no curPoly');
+    }
+    if (gYmapsPolygon) {
+        gYmapsPolygon.editor.stopDrawing();
+        gYmapsPolygon.editor.stopEditing();
+    }
+    setCurrentPoly({
+        "number": (gPolygons.length + 1) || 1, // 1-based
+        "status": null,
         "isAvailable": true,
-        "area": "10 соток",
+        "area": curPoly.area || 1000,
         "vertices": [
-            [
-                [55.220806154342206, 82.79678102355474],
-                [55.22080922100265, 82.79443029933437],
-                [55.22081228766281, 82.7944613767193]
-            ]
         ]
-    };
-    var stroke = pMetadata.isAvailable ? '#00FF00' : '#FF0000';
-    var fill = pMetadata.isAvailable ? '#00ff0015' : '#ff660015';
-    var myPolygon = new ymaps.Polygon([], {}, {
+    });
+    var stroke = '#00FFaa';
+    var fill = '#00ff5515';
+    gYmapsPolygon = new ymaps.Polygon([], {}, {
         editorDrawingCursor: "crosshair",
-        editorMaxPoints: 5,
+        editorMaxPoints: 15,
         fillColor: fill,
         strokeColor: stroke,
-        strokeWidth: 5
+        strokeWidth: 2
     });
-    myMap.geoObjects.add(myPolygon);
 
-    var stateMonitor = new ymaps.Monitor(myPolygon.editor.state);
+    myMap.geoObjects.add(gYmapsPolygon);
+
+    var stateMonitor = new ymaps.Monitor(gYmapsPolygon.editor.state);
     stateMonitor.add("drawing", function(newValue) {
-        myPolygon.options.set("strokeColor", newValue ? '#FF0000' : '#0000FF');
+        gYmapsPolygon.options.set("strokeColor", newValue ? '#FF0000' : '#0000FF');
     });
 
-    var logPoly = function() {
-        var coords = myPolygon.geometry.getCoordinates();
-        pMetadata.vertices = coords;
-        document.getElementById('polydata').value = JSON.stringify(pMetadata, null, '  ')
-    }
-    myPolygon.editor.events.add("vertexadd", logPoly);
-    myPolygon.editor.events.add("vertexdragend", logPoly);
+    gYmapsPolygon.editor.events.add("vertexadd", updatePoly);
+    gYmapsPolygon.editor.events.add("vertexdragend", updatePoly);
 
-    myPolygon.editor.startDrawing();
+    gYmapsPolygon.editor.startDrawing();
 }
 
-function init() {
-    console.log('init()');
-    myMap = new ymaps.Map("map", {
-        center: [55.030199, 82.92043],
-        zoom: 13,
-        type: 'yandex#hybrid',
-        avoidFractionalZoom: false
-    });
+function addGPolygonsToMap() {
+//     for (var key in gPolygons) {
+//         // skip loop if the property is from prototype
+//         if (!gPolygons.hasOwnProperty(key)) continue;
 
+//         var obj = gPolygons[key];
+//         myMap.geoObjects.add(polyFromMetadata(obj));
+//     }
     gPolygons.forEach(function(val, i, array) {
         // console.log(val);
         myMap.geoObjects.add(polyFromMetadata(val));
     });
+}
 
-    document.getElementById('btn_addpoly').onclick = addPoly;
+function init() {
+    console.log('init()');
+
+    document.onkeyup = function(e) {
+         if (e.ctrlKey && e.keyCode == 'M'.charCodeAt(0)) {
+             console.log('next!');
+             onNextPoly();
+         } else if (e.ctrlKey && e.key == 'Enter') {
+             console.log('next!');
+             onNextPoly();
+         } else if (e.key == 'Escape') {
+            if (gYmapsPolygon) {
+                gYmapsPolygon.editor.stopDrawing();
+                gYmapsPolygon.editor.stopEditing();
+            }
+         }
+console.log(e);
+    };
+
+    myMap = new ymaps.Map("map", {
+        center: [55.030199, 82.92043],
+        zoom: 13,
+        type: 'yandex#hybrid',
+        avoidFractionalZoom: false,
+        restrictMapArea: true
+    });
+
+    myMap.behaviors.disable('drag')
+        .disable('scrollZoom')
+        .disable('dblClickZoom')
+        .disable('multiTouch')
+        .disable('rightMouseButtonMagnifier');
+
+    myMap.controls.remove('zoomControl')
+        .remove('mapTools')
+        .remove('miniMap')
+        .remove('searchControl')
+        .remove('smallZoomControl')
+        .remove('trafficControl')
+        .remove('typeSelector');
+    // var it = myMap.controls.getIterator();
+    // var n;
+    // do {
+    //   n = it.getNext();
+    //     console.log(n);
+    // } while(n);
+
+//     mapTools miniMap searchControl searchControl typeSelector zoomControl smallZoomControl
+//     dblClickZoom multiTouch rightMouseButtonMagnifier
+
+    loadPolygonArray();
+
+    addGPolygonsToMap();
+    
+
+    document.getElementById('btn_addpoly').onclick = onNextPoly;
 
     //     document.getElementById('btn_addpoly').onclick = function() {
 
@@ -194,6 +300,14 @@ function init() {
         });
     });
 
+    // Restore last scroll position
+    document.getElementById('main').scrollTop = localStorage.getItem('mainScrollY');
+    document.getElementById('main').scrollLeft = localStorage.getItem('mainScrollX');
+
+    document.getElementById('main').onscroll = function() {
+        localStorage.setItem('mainScrollX', document.getElementById('main').scrollLeft);
+        localStorage.setItem('mainScrollY', document.getElementById('main').scrollTop);
+    }
 
     //myMap.setBounds(myPolyline.geometry.getBounds());
 
