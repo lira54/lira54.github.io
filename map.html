@@ -4,15 +4,58 @@
 <head>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript" src="liramap.js"></script>
+    <style>
+        .container {
+          position: absolute;
+          height: 100%;
+        }
+        .nav {
+          position: absolute;
+          left: 0px;
+          width: 300px;
+          height: 100%;
+        }
+        .nav .item {
+          position: relative;
+          display: block;
+          width: 286px;
+          margin: 4px;
+        }
+        .main {
+          /* position is static by default */
+          position: absolute;
+          overflow: auto;
+          left: 300px;
+          right: 0;
+          bottom: 0;
+          top: 0;
+        }
+        footer {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          height: 70px;
+          background-color: white;
+          width: 100%;
+        }
+    </style>
 </head>
 <title>Hello Map</title>
 
 <body>
-  <div id="map" style="position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;"></div>
+
+<div class="nav" style="z-index: 2;">
+  <button class="item" id="btn_center" >Center</button>
+  <button class="item" id="btn_addpoly" >Add Poly</button>
+  <textarea class="item" id="txt_name" ></textarea>
+  <textarea class="item" id="polydata" style="height: 70%;"></textarea>
+</div>
+<div class="main">
+  <img src="./gp_bg.png" id="bg" style="z-index: 0; width: 2580px; height:3690px;"></img>
+  <div id="map" style="position:absolute; top: 0;
+    left: 0;
+    width: 2580px; height:3690px; opacity: 0.7; z-index: 1;"></div>
+</div>
 </body>
 
-</html>
+</html

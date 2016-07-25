@@ -1,52 +1,132 @@
 ymaps.ready(loadPolygons);
 var myMap;
 var myPolyline;
+var gPolygons;
 
 function loadPolygons() {
-  console.log('loadPolygons()');
+    console.log('loadPolygons()');
     var xmlhttp = new XMLHttpRequest();
     var url = "polygons.json";
 
     xmlhttp.onreadystatechange = function() {
-      console.log(xmlhttp.responseText);
+        console.log(xmlhttp.responseText);
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var myArr = JSON.parse(xmlhttp.responseText);
-            init(myArr);
+            gPolygons = JSON.parse(xmlhttp.responseText);
+            init();
         }
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
 
-function init(polygons) {
+function polyFromMetadata(pMetadata) {
+    var bCont = '<b>' + pMetadata.title +
+        '<\b><br>Площадь: ' + pMetadata.area +
+        '<br>Статус: ' + pMetadata.status;
+    var stroke = pMetadata.isAvailable ? '#00FF00' : '#FF0000';
+    var fill = pMetadata.isAvailable ? '#00ff0015' : '#ff660015';
+    return new ymaps.Polygon(
+        pMetadata.vertices, {
+            balloonContent: bCont,
+            hintContent: bCont
+        }, {
+            strokeWidth: 2,
+            strokeColor: stroke,
+            fillColor: fill,
+            hasBalloon: true,
+            hasHint: true,
+            draggable: false,
+        }
+    );
+
+}
+
+function addPoly() {
+    var pMetadata = {
+        "number": gPolygons.length,
+        "title": "участок #" + gPolygons.length,
+        "status": "Свободен",
+        "isAvailable": true,
+        "area": "10 соток",
+        "vertices": [
+            [
+                [55.220806154342206, 82.79678102355474],
+                [55.22080922100265, 82.79443029933437],
+                [55.22081228766281, 82.7944613767193]
+            ]
+        ]
+    };
+    var stroke = pMetadata.isAvailable ? '#00FF00' : '#FF0000';
+    var fill = pMetadata.isAvailable ? '#00ff0015' : '#ff660015';
+    var myPolygon = new ymaps.Polygon([], {}, {
+        editorDrawingCursor: "crosshair",
+        editorMaxPoints: 5,
+        fillColor: fill,
+        strokeColor: stroke,
+        strokeWidth: 5
+    });
+    myMap.geoObjects.add(myPolygon);
+
+    var stateMonitor = new ymaps.Monitor(myPolygon.editor.state);
+    stateMonitor.add("drawing", function(newValue) {
+        myPolygon.options.set("strokeColor", newValue ? '#FF0000' : '#0000FF');
+    });
+
+    var logPoly = function() {
+        var coords = myPolygon.geometry.getCoordinates();
+        pMetadata.vertices = coords;
+        document.getElementById('polydata').value = JSON.stringify(pMetadata, null, '  ')
+    }
+    myPolygon.editor.events.add("vertexadd", logPoly);
+    myPolygon.editor.events.add("vertexdragend", logPoly);
+
+    myPolygon.editor.startDrawing();
+}
+
+function init() {
     console.log('init()');
     myMap = new ymaps.Map("map", {
         center: [55.030199, 82.92043],
         zoom: 13,
-        type: 'yandex#hybrid'
+        type: 'yandex#hybrid',
+        avoidFractionalZoom: false
     });
 
-    polygons.forEach(function(val, i, array) {
-        console.log(val);
-        var bCont = '<b>' + val.title +
-            '<\b><br>Площадь: ' + val.area +
-            '<br>Статус: ' + val.status;
-            var stroke = val.isAvailable ? '#00FF00' : '#FF0000';
-            var fill = val.isAvailable ? '#00ff0015' : '#ff660015';
-        myMap.geoObjects.add(new ymaps.Polygon(
-            val.vertices, {
-                balloonContent: bCont,
-                hintContent: bCont
-            }, {
-                strokeWidth: 2,
-                strokeColor: stroke,
-                fillColor: fill,
-                hasBalloon: true,
-                hasHint: true,
-                draggable: false
-            }
-        ));
+    gPolygons.forEach(function(val, i, array) {
+        // console.log(val);
+        myMap.geoObjects.add(polyFromMetadata(val));
     });
+
+    document.getElementById('btn_addpoly').onclick = addPoly;
+
+    //     document.getElementById('btn_addpoly').onclick = function() {
+
+    //         var newPoly = {
+    //             "number": gPolygons.length,
+    //             "title": "участок #" + gPolygons.length,
+    //             "status": "Свободен",
+    //             "isAvailable": true,
+    //             "area": "10 соток",
+    //             "vertices": [
+    //                 [
+    //                   [55.220806154342206, 82.79678102355474],
+    //                   [55.22080922100265, 82.79443029933437],
+    //                   [55.22081228766281, 82.7944613767193]
+    //                 ]
+    //             ]
+    //         };
+    //         myPolyline = polyFromMetadata(newPoly);
+    //         myMap.geoObjects.add(myPolyline);
+
+    //         myPolyline.editor.startEditing();
+    //         var logPoly = function() {
+    //           var coords = myPolyline.geometry.getCoordinates();
+    //           newPoly.vertices = coords;
+    //           document.getElementById('polydata').value = JSON.stringify(newPoly,null, '  ')
+    //         }
+    //         myPolyline.editor.events.add("vertexadd", logPoly);
+    //         myPolyline.editor.events.add("vertexdragend", logPoly);
+    //     };
     // myMap.geoObjects.add(new ymaps.Polygon(
     //     [
     //         [
@@ -103,15 +183,18 @@ function init(polygons) {
     // );
     // myMap.geoObjects.add(myPolyline);
 
-    myMap.panTo([55.218465, 82.79613], {
-        duration: 2000
+
+
+    //     myMap.panTo([55.218465, 82.79613], {
+    myMap.panTo([55.21741612765416, 82.79426586473464], {
+        duration: 1000
     }).then(function() {
-        return myMap.setZoom(15, {
-            duration: 600
+        return myMap.setZoom(18, {
+            duration: 300
         });
     });
 
-    // 		myPolyline.editor.startEditing();
+
     //myMap.setBounds(myPolyline.geometry.getBounds());
 
 }
