@@ -30,3 +30,4 @@ function loadAsMarkdown(mdLink, elementId) {
 
 loadAsMarkdown('data/about.md', 'tab_content_about');
 loadAsMarkdown('data/news.md', 'tab_content_news');
+loadAsMarkdown('data/contact.md', 'tab_content_contact');
