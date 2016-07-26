@@ -5,31 +5,28 @@
 <!-- <xmp id="md_content" theme="united" style="display:none;">
 </xmp> -->
 
-<!-- <script src="strapdown/v/0.2/strapdown.js"></script> -->
+<script src="strapdown/v/0.2/strapdown.js"></script>
 
-<script type = "text/javascript" language = "JavaScript">
-// $.ajax({url:"x.html",context: document.body, success: function(response){
-//         $("#yourDiv").html(response);
-// });
+<script type="text/javascript" language="JavaScript">
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'news.md', true);
+    xhr.onreadystatechange = function() {
+        if (this.readyState !== 4) return;
+        if (this.status !== 200) return; // or whatever error handling you want
+        console.log(this.responseText);
+        // document.getElementById('md_content').innerHTML= this.responseText;
+        var btn = document.createElement("xmp"); // Create a <button> element
+        btn.setAttribute("theme", "united");
+        btn.setAttribute("style", "display:none;");
+        btn.innerHTML = this.responseText;
+        document.body.appendChild(btn);
 
-var xhr= new XMLHttpRequest();
-xhr.open('GET', 'news.md', true);
-xhr.onreadystatechange= function() {
-    if (this.readyState!==4) return;
-    if (this.status!==200) return; // or whatever error handling you want
-    console.log(this.responseText);
-    // document.getElementById('md_content').innerHTML= this.responseText;
-    var btn = document.createElement("xmp");       // Create a <button> element
-    btn.setAttribute("theme", "united");
-    btn.setAttribute("style", "display:none;");
-    btn.innerHTML = this.responseText;
-    document.body.appendChild(btn);
-
-    var fileref=document.createElement('script');
-		fileref.setAttribute("type","text/javascript");
-		fileref.setAttribute("src", "strapdown/v/0.2/strapdown.js");
-    document.body.appendChild(fileref);
-};
-xhr.send();
+        var fileref = document.createElement('script');
+        fileref.setAttribute("type", "text/javascript");
+        fileref.setAttribute("src", "strapdown/v/0.2/strapdown.js");
+        document.body.appendChild(fileref);
+    };
+    xhr.send();
 </script>
+
 </html>
