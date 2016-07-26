@@ -1,0 +1,7 @@
+.navigation-header {
+    min-height: unset;
+}
+
+.navigation-header nav {
+    justify-content: center;
+}
