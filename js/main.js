@@ -28,5 +28,5 @@ function loadAsMarkdown(mdLink, elementId) {
     xhr.send();
 }
 
-loadAsMarkdown('about.md', 'tab_content_about');
-loadAsMarkdown('news.md', 'tab_content_news');
+loadAsMarkdown('data/about.md', 'tab_content_about');
+loadAsMarkdown('data/news.md', 'tab_content_news');
