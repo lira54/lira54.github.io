@@ -47,6 +47,7 @@ body::before {
 .lira-header {
     position: relative;
     background-image: url(../images/header-bg.jpg);
+    background-size: cover;
 }
 
 .lira-header .mdl-layout__header-row {
@@ -61,7 +62,7 @@ body::before {
 }
 
 .lira-logo-row {
-    min-height: 400px;
+    min-height: 200px;
 }
 
 .is-compact .lira-logo-row {
