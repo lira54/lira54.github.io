@@ -18,9 +18,9 @@ body::before {
 }
 
 .page-container {
-  max-width: 1600px;
-  width: calc(100% - 16px);
-  margin: 0 auto;
+    max-width: 1600px;
+    width: calc(100% - 16px);
+    margin: 0 auto;
 }
 
 .page-content {
@@ -34,4 +34,88 @@ body::before {
 
 .navigation-header nav {
     justify-content: center;
+}
+
+.lira-logo {
+    background: url(../images/logo.png) 50% no-repeat;
+    background-size: cover;
+    height: 145px;
+    width: 397px;
+    margin: auto auto 10px;
+}
+
+.lira-header {
+    position: relative;
+    background-image: url(../images/header-bg.jpg);
+}
+
+.lira-header .mdl-layout__header-row {
+    padding: 0;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.lira-header .mdl-layout__tab-bar-container {
+    height: 48px;
+}
+
+.lira-logo-row {
+    min-height: 400px;
+}
+
+.is-compact .lira-logo-row {
+  /*margin-top: -600px;*/
+    /*min-height: unset;*/
+    /*max-height: 0px;*/
+}
+
+.is-compact.lira-header {
+    /* this adds a little rubbery lag when collapsing*/
+    height: 48px!important;
+}
+
+
+.is-compact .mdl-layout__tab-bar-container {
+    /* this adds a little rubbery lag when collapsing*/
+    height: 96px;
+    position: absolute;
+}
+
+.lira-navigation-row {
+  background-color: rgba(0, 0, 0, 0.08);
+  text-transform: uppercase;
+  height: 45px;
+}
+
+.lira-navigation-row  .mdl-navigation {
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+}
+
+.lira-navigation-row .mdl-navigation__link {
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  line-height: 42px;
+}
+
+.lira-navigation-row .is-active {
+    position: relative;
+    font-weight: bold;
+}
+
+.lira-navigation-row .is-active:after {
+    height: 2px;
+    width: 100%;
+    display: block;
+    content: " ";
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    background: rgb(255, 82, 82);
+    -webkit-animation: border-expand .2s cubic-bezier(.4, 0, .4, 1).01s alternate forwards;
+    animation: border-expand .2s cubic-bezier(.4, 0, .4, 1).01s alternate forwards;
+    transition: all 1s cubic-bezier(.4, 0, 1, 1);
 }
