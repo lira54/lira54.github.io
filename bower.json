@@ -1,0 +1,23 @@
+{
+  "name": "lira",
+  "homepage": "https://github.com/lira54/lira54.github.io",
+  "authors": [
+    "Ivan Bartsov"
+  ],
+  "description": "",
+  "main": "index.html",
+  "license": "Private",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "material-design-lite": "^1.1.3",
+    "showdown": "^1.4.2",
+    "material-design-icons-dist": "^1.1.0"
+  }
+}
