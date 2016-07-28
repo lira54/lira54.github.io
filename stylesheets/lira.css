@@ -9,8 +9,9 @@ body::before {
     bottom: 0;
     top: 0;
     position: fixed;
+    background-position: center;
     background-image: url('../images/header-bg.jpg');
-/*     -webkit-filter: blur(3px);
+    /*     -webkit-filter: blur(3px);
     -moz-filter: blur(3px);
     -o-filter: blur(3px);
     -ms-filter: blur(3px);
@@ -28,14 +29,6 @@ body::before {
     padding: 56px 56px;
 }
 
-.navigation-header {
-    min-height: unset;
-}
-
-.navigation-header nav {
-    justify-content: center;
-}
-
 .lira-logo {
     background: url(../images/logo.png) 50% no-repeat;
     background-size: cover;
@@ -47,8 +40,14 @@ body::before {
 .lira-header {
     position: relative;
     background-color:transparent;
-/*     background-image: url(../images/header-bg.jpg); */
-/*     background-size: cover; */
+    min-height: 48px;
+    /*     background-image: url(../images/header-bg.jpg); */
+    /*     background-size: cover; */
+}
+
+.lira-header.is-compact {
+      min-height: unset;
+      height: 48px!important;
 }
 
 .lira-header .mdl-layout__header-row {
@@ -60,10 +59,6 @@ body::before {
 
 .lira-header .mdl-layout__tab-bar-container {
     height: 48px;
-}
-
-.lira-logo-row {
-    min-height: 200px;
 }
 
 .is-compact .lira-logo-row {
@@ -81,11 +76,6 @@ body::before {
 .lira-main-navigation {
   height: 48px;
 }
-
-.is-compact.lira-header {
-    height: 48px!important;
-}
-
 
 .is-compact .mdl-layout__tab-bar-container {
     /* this adds a little rubbery lag when collapsing*/
