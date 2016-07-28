@@ -42,7 +42,7 @@ body::before {
 .lira-logo.lira-logo-index {
     height: 145px;
     width: 397px;
-    margin: 10px auto 10px;
+    margin: 32px 32px 10px;
 }
 
 .lira-phone-email {
@@ -57,9 +57,9 @@ body::before {
 }
 
 .lira-phone-email.lira-logo-index {
-  width: 400px;
-  height: 129px;
-  margin: 24px auto 24px;
+  width: 308px;
+  height: 97px;
+  margin: 32px 16px 24px;
 }
 
 .lira-header {
