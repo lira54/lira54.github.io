@@ -72,8 +72,17 @@ body::before {
     /*max-height: 0px;*/
 }
 
+.lira-navigation {
+  justify-content: center;
+  width: auto;
+  padding: unset;
+}
+
+.lira-main-navigation {
+  height: 48px;
+}
+
 .is-compact.lira-header {
-    /* this adds a little rubbery lag when collapsing*/
     height: 48px!important;
 }
 
@@ -88,13 +97,6 @@ body::before {
   background-color: rgba(0, 0, 0, 0.08);
   text-transform: uppercase;
   height: 45px;
-}
-
-.lira-main-navigation {
-  height: 48px;
-  justify-content: center;
-  width: unset;
-  padding: unset;
 }
 
 .lira-navigation-row  .mdl-navigation {
