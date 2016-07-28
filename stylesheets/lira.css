@@ -25,7 +25,7 @@ body::before {
 
 .page-content {
     border-radius: 2px;
-    padding: 80px 56px;
+    padding: 56px 56px;
 }
 
 .navigation-header {
@@ -87,6 +87,13 @@ body::before {
   background-color: rgba(0, 0, 0, 0.08);
   text-transform: uppercase;
   height: 45px;
+}
+
+.lira-main-navigation {
+  height: 48px;
+  justify-content: center;
+  width: unset;
+  padding: unset;
 }
 
 .lira-navigation-row  .mdl-navigation {
