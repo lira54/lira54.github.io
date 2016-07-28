@@ -9,7 +9,7 @@ body::before {
     bottom: 0;
     top: 0;
     position: fixed;
-    background-position: center;
+    background-position: center-horizontal;
     background-image: url('../images/header-bg.jpg');
     /*     -webkit-filter: blur(3px);
     -moz-filter: blur(3px);
@@ -32,17 +32,40 @@ body::before {
 .lira-logo {
     background: url(../images/logo.png) 50% no-repeat;
     background-size: cover;
+    /*height: 110px;
+    width: 301px;*/
+    height: 110px;
+    width: 301px;
+    margin: 10px auto 10px;
+}
+
+.lira-logo.lira-logo-index {
     height: 145px;
     width: 397px;
-    margin: auto auto 10px;
+}
+
+.lira-phone-email {
+  background-image: url('../images/phone-email.png');
+  background-repeat: no-repeat;
+  background-size: initial;
+  width: 400px; /*or your image's width*/
+  height: 129px; /*or your image's height*/
+  margin: 0;
+  padding: 0;
+  margin: 24px auto 24px;
 }
 
 .lira-header {
     position: relative;
     background-color:transparent;
     min-height: 48px;
+    display: flex;
     /*     background-image: url(../images/header-bg.jpg); */
     /*     background-size: cover; */
+}
+
+.lira-header.lira-main-header {
+  margin-top: 392px;
 }
 
 .lira-header.is-compact {
@@ -61,12 +84,6 @@ body::before {
     height: 48px;
 }
 
-.is-compact .lira-logo-row {
-  /*margin-top: -600px;*/
-    /*min-height: unset;*/
-    /*max-height: 0px;*/
-}
-
 .lira-navigation {
   justify-content: center;
   width: auto;
@@ -75,7 +92,24 @@ body::before {
 
 .lira-main-navigation {
   height: 48px;
+  /* top: 300px; */
+  background-color: transparent;
 }
+nav.lira-main-navigation::before {
+  content: '';
+  will-change: transform;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  position: absolute;
+  opacity:0.7;
+  height: 48px;
+  /* top: 300px; */
+  background-color: rgb(0,150,136);
+}
+
 
 .is-compact .mdl-layout__tab-bar-container {
     /* this adds a little rubbery lag when collapsing*/
