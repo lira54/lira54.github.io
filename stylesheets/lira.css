@@ -44,6 +44,31 @@ body::before {
     -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.flex-item-thumb {
+    max-width: 176px;
+    max-height: 128px;
+    text-align: center;
+    margin: 8px;
+    display: flex;
+}
+
+.flex-item-thumb img {
+    max-width: 100%;
+}
+
 .page-content-text {
     padding: 56px 56px;
 }
