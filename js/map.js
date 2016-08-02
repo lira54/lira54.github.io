@@ -3,7 +3,7 @@ var myMap;
 // var myPolyline;
 var gPolygons;
 
-var cStrokeAvail = '#06ef35';
+var cStrokeAvail = '#00db2c';
 var cStrokeNA = '#FF0000';
 var cFillAvail = '#00c72865';
 var cFillNA = '#ff660015';
@@ -32,17 +32,21 @@ function addGPolygonsToMap() {
 
 
 function polyFromMetadata(pMetadata) {
-    var bCont = '<b>Участок №' + pMetadata.number +
-        '</b><br>Площадь: ' + pMetadata.area;
-    if (pMetadata.status) {
-        bCont += '<br>Статус: ' + pMetadata.status;
-    }
+    var statusColor = pMetadata.isAvailable ? cStrokeAvail : cStrokeNA;
+    var statusText = pMetadata.isAvailable ? 'Свободен' : 'Продан';
+    var statusString = '<font color="' + statusColor + '">' + statusText + '</font>'
+    var bCont = '<b><h5>Участок №' + pMetadata.number
+    +'</h5></b>\n<h6>Площадь: ' + pMetadata.area + 'м&#178</h6>'
+        + '\n<b><h6>' + statusString + '</h6></b>';
+    var hCont = 'Участок № ' + pMetadata.number
+      +' | ' + pMetadata.area + 'м&#178 | ' + statusString;
+
     var stroke = pMetadata.isAvailable ? cStrokeAvail : cStrokeNA;
     var fill = pMetadata.isAvailable ? cFillAvail : cFillNA;
     var poly = new ymaps.Polygon(
         pMetadata.vertices, {
             balloonContent: bCont,
-            hintContent: bCont
+            hintContent: hCont
         }, {
             strokeWidth: 2,
             strokeColor: stroke,
