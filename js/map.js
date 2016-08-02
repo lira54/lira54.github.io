@@ -12,7 +12,7 @@ function loadPolygons() {
         console.log(xmlhttp.responseText);
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             gPolygons = JSON.parse(xmlhttp.responseText);
-             init();
+            init();
         }
     };
     xmlhttp.open("GET", url, true);
@@ -54,42 +54,39 @@ function init() {
     console.log('init()');
 
     document.onkeyup = function(e) {
-         if (e.ctrlKey && e.keyCode == 'M'.charCodeAt(0)) {
-             console.log('next!');
-             onNextPoly();
-         } else if (e.ctrlKey && e.key == 'Enter') {
-             console.log('next!');
-             onNextPoly();
-         } else if (e.key == 'Escape') {
+        if (e.ctrlKey && e.keyCode == 'M'.charCodeAt(0)) {
+            console.log('next!');
+            onNextPoly();
+        } else if (e.ctrlKey && e.key == 'Enter') {
+            console.log('next!');
+            onNextPoly();
+        } else if (e.key == 'Escape') {
             if (gYmapsPolygon) {
                 gYmapsPolygon.editor.stopDrawing();
                 gYmapsPolygon.editor.stopEditing();
             }
-         }
+        }
         console.log(e);
     };
 
     myMap = new ymaps.Map("map", {
         center: [55.030199, 82.92043],
-        zoom: 13,
+        zoom: 15,
         type: 'yandex#hybrid',
         avoidFractionalZoom: false,
         restrictMapArea: true
     });
 
-    /* myMap.behaviors.disable('drag')
-        .disable('scrollZoom')
-        .disable('dblClickZoom')
-        .disable('multiTouch')
-        .disable('rightMouseButtonMagnifier'); */
+    myMap.behaviors.disable('rightMouseButtonMagnifier');
 
-    /* myMap.controls.remove('zoomControl')
+    myMap.controls
+        .remove('zoomControl')
         .remove('mapTools')
         .remove('miniMap')
         .remove('searchControl')
         .remove('smallZoomControl')
         .remove('trafficControl')
-        .remove('typeSelector'); */
+        .remove('typeSelector');
     // var it = myMap.controls.getIterator();
     // var n;
     // do {
@@ -97,28 +94,23 @@ function init() {
     //     console.log(n);
     // } while(n);
 
-//     mapTools miniMap searchControl searchControl typeSelector zoomControl smallZoomControl
-//     dblClickZoom multiTouch rightMouseButtonMagnifier
+    //     mapTools miniMap searchControl searchControl typeSelector zoomControl smallZoomControl
+    //     dblClickZoom multiTouch rightMouseButtonMagnifier
 
     addGPolygonsToMap();
 
-    myMap.panTo([55.218465, 82.79613], {
+    myMap.setZoom(13, {
         duration: 1000
     }).then(function() {
+        return myMap.panTo([55.218465, 82.79613], {
+            duration: 2500
+        })
+    }).then(function() {
         return myMap.setZoom(15, {
-            duration: 300
+            duration: 1000
         });
     });
 
-    // Restore last scroll position
-    document.getElementById('main').scrollTop = localStorage.getItem('mainScrollY');
-    document.getElementById('main').scrollLeft = localStorage.getItem('mainScrollX');
-
-    document.getElementById('main').onscroll = function() {
-        localStorage.setItem('mainScrollX', document.getElementById('main').scrollLeft);
-        localStorage.setItem('mainScrollY', document.getElementById('main').scrollTop);
-    }
-    
 
     //     document.getElementById('btn_addpoly').onclick = function() {
 
@@ -206,7 +198,7 @@ function init() {
 
 
 
-    
+
 
     //myMap.setBounds(myPolyline.geometry.getBounds());
 
