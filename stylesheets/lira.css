@@ -94,7 +94,10 @@ body::before {
 .lira-logo.lira-logo-index {
     height: 145px;
     width: 397px;
-    margin: 32px 32px 10px;
+    margin: 0;
+    left: 0;
+    margin-right: auto;
+    align-self: center;
 }
 
 .lira-phone-email {
@@ -111,7 +114,9 @@ body::before {
 .lira-phone-email.lira-logo-index {
     width: 205px;
     height: 64px;
-    margin: 32px 16px 24px;
+    /* margin: 32px 16px 24px; */
+    /* margin-left: auto; */
+    align-self: flex-end;
 }
 
 .lira-header {
@@ -121,6 +126,35 @@ body::before {
     display: flex;
     /*     background-image: url(../images/header-bg.jpg); */
     /*     background-size: cover; */
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.lira-logo-container {
+    width: 706px;
+    position: relative;
+    background-color: transparent;
+    margin-top: 5%;
+    display: flex;
+    /*     background-image: url(../images/header-bg.jpg); */
+    /*     background-size: cover; */
+    /* align-self: center; */
+}
+
+
+@media screen and (max-width: 1024px) {
+.lira-logo-container {
+    max-width: 562px;
+    position: relative;
+    background-color: transparent;
+    margin-top: 3%;
+    display: flex;
+    /*     background-image: url(../images/header-bg.jpg); */
+    /*     background-size: cover; */
+    align-self: stretch;
+}
 }
 
 .lira-header.lira-main-header {
