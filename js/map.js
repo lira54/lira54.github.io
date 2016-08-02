@@ -3,6 +3,11 @@ var myMap;
 // var myPolyline;
 var gPolygons;
 
+var cStrokeAvail = '#06ef35';
+var cStrokeNA = '#FF0000';
+var cFillAvail = '#00c72865';
+var cFillNA = '#ff660015';
+
 function loadPolygons() {
     console.log('loadPolygons()');
     var xmlhttp = new XMLHttpRequest();
@@ -27,11 +32,13 @@ function addGPolygonsToMap() {
 
 
 function polyFromMetadata(pMetadata) {
-    var bCont = '<b>' + pMetadata.title +
-        '<\b><br>Площадь: ' + pMetadata.area +
-        '<br>Статус: ' + pMetadata.status;
-    var stroke = pMetadata.isAvailable ? '#00FF00' : '#FF0000';
-    var fill = pMetadata.isAvailable ? '#00ff0015' : '#ff660015';
+    var bCont = '<b>Участок №' + pMetadata.number +
+        '</b><br>Площадь: ' + pMetadata.area;
+    if (pMetadata.status) {
+        bCont += '<br>Статус: ' + pMetadata.status;
+    }
+    var stroke = pMetadata.isAvailable ? cStrokeAvail : cStrokeNA;
+    var fill = pMetadata.isAvailable ? cFillAvail : cFillNA;
     var poly = new ymaps.Polygon(
         pMetadata.vertices, {
             balloonContent: bCont,
