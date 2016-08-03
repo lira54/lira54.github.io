@@ -11,7 +11,7 @@ var cFillNA = '#ff660015';
 function loadPolygons() {
     console.log('loadPolygons()');
     var xmlhttp = new XMLHttpRequest();
-    var url = "../data/62_poly.json";
+    var url = "../data/estate-private.json";
 
     xmlhttp.onreadystatechange = function() {
         console.log(xmlhttp.responseText);
@@ -30,16 +30,15 @@ function addGPolygonsToMap() {
     });
 }
 
-
 function polyFromMetadata(pMetadata) {
     var statusColor = pMetadata.isAvailable ? cStrokeAvail : cStrokeNA;
     var statusText = pMetadata.isAvailable ? 'Свободен' : 'Продан';
     var statusString = '<font color="' + statusColor + '">' + statusText + '</font>'
-    var bCont = '<b><h5>Участок №' + pMetadata.number
-    +'</h5></b>\n<h6>Площадь: ' + pMetadata.area + 'м&#178</h6>'
-        + '\n<b><h6>' + statusString + '</h6></b>';
-    var hCont = 'Участок № ' + pMetadata.number
-      +' | ' + pMetadata.area + 'м&#178 | ' + statusString;
+    var bCont = '<b><h5>Участок №' + pMetadata.number +
+        '</h5></b>\n<h6>Площадь: ' + pMetadata.area + 'м&#178</h6>' +
+        '\n<b><h6>' + statusString + '</h6></b>';
+    var hCont = 'Участок № ' + pMetadata.number +
+        ' | ' + pMetadata.area + 'м&#178 | ' + statusString;
 
     var stroke = pMetadata.isAvailable ? cStrokeAvail : cStrokeNA;
     var fill = pMetadata.isAvailable ? cFillAvail : cFillNA;
@@ -59,6 +58,21 @@ function polyFromMetadata(pMetadata) {
 
     return poly;
 
+}
+
+function animateToLira() {
+    var mapCenter = [55.2167720694846, 82.79472452247623];
+    myMap.setZoom(13, {
+        duration: 1200
+    }).then(function() {
+        return myMap.panTo(mapCenter, {
+            duration: 2500
+        }).then(function() {
+            return myMap.setZoom(16, {
+                duration: 1200
+            });
+        })
+    });
 }
 
 function init() {
@@ -82,7 +96,7 @@ function init() {
 
     myMap = new ymaps.Map("map", {
         center: [55.030199, 82.92043],
-        zoom: 15,
+        zoom: 17,
         type: 'yandex#hybrid',
         avoidFractionalZoom: false,
         restrictMapArea: true
@@ -98,119 +112,8 @@ function init() {
         .remove('smallZoomControl')
         .remove('trafficControl')
         .remove('typeSelector');
-    // var it = myMap.controls.getIterator();
-    // var n;
-    // do {
-    //   n = it.getNext();
-    //     console.log(n);
-    // } while(n);
-
-    //     mapTools miniMap searchControl searchControl typeSelector zoomControl smallZoomControl
-    //     dblClickZoom multiTouch rightMouseButtonMagnifier
 
     addGPolygonsToMap();
 
-    myMap.setZoom(13, {
-        duration: 1000
-    }).then(function() {
-        return myMap.panTo([55.218465, 82.79613], {
-            duration: 2500
-        })
-    }).then(function() {
-        return myMap.setZoom(15, {
-            duration: 1000
-        });
-    });
-
-
-    //     document.getElementById('btn_addpoly').onclick = function() {
-
-    //         var newPoly = {
-    //             "number": gPolygons.length,
-    //             "title": "участок #" + gPolygons.length,
-    //             "status": "Свободен",
-    //             "isAvailable": true,
-    //             "area": "10 соток",
-    //             "vertices": [
-    //                 [
-    //                   [55.220806154342206, 82.79678102355474],
-    //                   [55.22080922100265, 82.79443029933437],
-    //                   [55.22081228766281, 82.7944613767193]
-    //                 ]
-    //             ]
-    //         };
-    //         myPolyline = polyFromMetadata(newPoly);
-    //         myMap.geoObjects.add(myPolyline);
-
-    //         myPolyline.editor.startEditing();
-    //         var logPoly = function() {
-    //           var coords = myPolyline.geometry.getCoordinates();
-    //           newPoly.vertices = coords;
-    //           document.getElementById('polydata').value = JSON.stringify(newPoly,null, '  ')
-    //         }
-    //         myPolyline.editor.events.add("vertexadd", logPoly);
-    //         myPolyline.editor.events.add("vertexdragend", logPoly);
-    //     };
-    // myMap.geoObjects.add(new ymaps.Polygon(
-    //     [
-    //         [
-    //             [55.220806154342206, 82.79678102355474],
-    //             [55.22080922100265, 82.79443029933437],
-    //             [55.22081228766281, 82.7944613767193],
-    //             [55.220815354311604, 82.79446026759581],
-    //             [55.22281300865209, 82.79615743832815],
-    //             [55.22285988348271, 82.79649124317527],
-    //             [55.22242947693308, 82.79664741676278],
-    //             [55.222024145512066, 82.79656457101561],
-    //             [55.221526812039, 82.79676067500601],
-    //             [55.220806154342206, 82.79678102355474]
-    //         ]
-    //     ], {
-    //         balloonContent: '<b>Газонокосилочная трасса</b><br>площадь: 1Га<br> статус: дворянские владения',
-    //         hintContent: '<b>Газонокосилочная трасса</b><br>площадь: 1Га<br> статус: дворянские владения'
-    //     }, {
-    //         strokeWidth: 2,
-    //         strokeColor: '#FF0000',
-    //         fillColor: '#ff660015',
-    //         hasBalloon: true,
-    //         hasHint: true,
-    //         draggable: false
-    //     }
-    // ));
-    // myPolyline = new ymaps.Polygon(
-    //     [
-    //         [
-    //             [55.220806154342206, 82.79678102355474],
-    //             [55.22080922100265, 82.79443029933437],
-    //             [55.22081228766281, 82.7944613767193],
-    //             [55.220815354311604, 82.79446026759581],
-    //             [55.21990945900301, 82.79422833021447],
-    //             [55.21684362448681, 82.79517954587308],
-    //             [55.21381572962394, 82.79498356997934],
-    //             [55.2138613890301, 82.79751726932756],
-    //             [55.21530203384407, 82.7971604298389],
-    //             [55.21803425501262, 82.7975613672418],
-    //             [55.22080462100419, 82.79677945046903],
-    //             [55.220806154342206, 82.79678102355474]
-    //         ]
-    //     ], {
-    //         balloonContent: '<b>Пригород</b><br>площадь: 5Га<br> статус: роздано мещанам',
-    //         hintContent: '<b>Пригород</b><br>площадь: 5Га<br> статус: роздано мещанам'
-    //     }, {
-    //         strokeWidth: 2,
-    //         strokeColor: '#00FF00',
-    //         fillColor: '#00ff0015',
-    //         hasBalloon: true,
-    //         hasHint: true,
-    //         draggable: false
-    //     }
-    // );
-    // myMap.geoObjects.add(myPolyline);
-
-
-
-
-
-    //myMap.setBounds(myPolyline.geometry.getBounds());
-
+    setTimeout(animateToLira, 700);
 }
