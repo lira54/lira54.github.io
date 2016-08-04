@@ -3,10 +3,10 @@ var myMap;
 // var myPolyline;
 var gPolygons;
 
-var cStrokeAvail = '#00db2c';
-var cStrokeNA = '#FF0000';
-var cFillAvail = '#00c72865';
-var cFillNA = '#ff660015';
+var cStrokeAvail = '#5cfb00';
+var cStrokeNA = '#454545';
+var cFillAvail = '#2ccb0035';
+var cFillNA = '#45454535';
 
 function loadPolygons() {
     console.log('loadPolygons()');
@@ -31,7 +31,7 @@ function addGPolygonsToMap() {
 }
 
 function polyFromMetadata(pMetadata) {
-    var statusColor = pMetadata.isAvailable ? cStrokeAvail : cStrokeNA;
+    var statusColor = pMetadata.isAvailable ? "#2ccb00" : cStrokeNA;
     var statusText = pMetadata.isAvailable ? 'Свободен' : 'Продан';
     var statusString = '<font color="' + statusColor + '">' + statusText + '</font>'
     var bCont = '<b><h5>Участок №' + pMetadata.number +
@@ -42,13 +42,16 @@ function polyFromMetadata(pMetadata) {
 
     var stroke = pMetadata.isAvailable ? cStrokeAvail : cStrokeNA;
     var fill = pMetadata.isAvailable ? cFillAvail : cFillNA;
+    var width = pMetadata.isAvailable ? 2 : 1;
+    var sStyle = pMetadata.isAvailable ? 'shortdot' : 'shortdot';
     var poly = new ymaps.Polygon(
         pMetadata.vertices, {
             balloonContent: bCont,
             hintContent: hCont
         }, {
-            strokeWidth: 2,
+            strokeWidth: width,
             strokeColor: stroke,
+            strokeStyle: sStyle,
             fillColor: fill,
             hasBalloon: true,
             hasHint: true,
@@ -114,6 +117,8 @@ function init() {
         .remove('typeSelector');
 
     addGPolygonsToMap();
+    myMap.setCenter( [55.2167720694846, 82.79472452247623]);
+    myMap.setZoom(16);
+    // setTimeout(animateToLira, 700);
 
-    setTimeout(animateToLira, 700);
 }
