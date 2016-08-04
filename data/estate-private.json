@@ -62,7 +62,7 @@
     {
         "number":3,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1001,
         "vertices":[
             [
@@ -182,7 +182,7 @@
     {
         "number":7,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1002,
         "vertices":[
             [
@@ -302,7 +302,7 @@
     {
         "number":11,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -332,7 +332,7 @@
     {
         "number":12,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -602,7 +602,7 @@
     {
         "number":21,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":900,
         "vertices":[
             [
@@ -666,7 +666,7 @@
     {
         "number":23,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1193,
         "vertices":[
             [
@@ -760,7 +760,7 @@
     {
         "number":26,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -790,7 +790,7 @@
     {
         "number":27,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -910,7 +910,7 @@
     {
         "number":31,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1150,
         "vertices":[
             [
@@ -1090,7 +1090,7 @@
     {
         "number":37,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1090,
         "vertices":[
             [
@@ -1120,7 +1120,7 @@
     {
         "number":38,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":800,
         "vertices":[
             [
@@ -1150,7 +1150,7 @@
     {
         "number":39,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -1180,7 +1180,7 @@
     {
         "number":40,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -1210,7 +1210,7 @@
     {
         "number":41,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -1240,7 +1240,7 @@
     {
         "number":42,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -1270,7 +1270,7 @@
     {
         "number":43,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":944,
         "vertices":[
             [
@@ -1300,7 +1300,7 @@
     {
         "number":44,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":940,
         "vertices":[
             [
@@ -1330,7 +1330,7 @@
     {
         "number":45,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":940,
         "vertices":[
             [
@@ -1360,7 +1360,7 @@
     {
         "number":46,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":940,
         "vertices":[
             [
@@ -1458,7 +1458,7 @@
     {
         "number":49,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":883,
         "vertices":[
             [
@@ -1608,7 +1608,7 @@
     {
         "number":54,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -1676,7 +1676,7 @@
     {
         "number":56,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1196,
         "vertices":[
             [
@@ -1706,7 +1706,7 @@
     {
         "number":57,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -1736,7 +1736,7 @@
     {
         "number":58,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":929,
         "vertices":[
             [
@@ -1766,7 +1766,7 @@
     {
         "number":59,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1000,
         "vertices":[
             [
@@ -1796,7 +1796,7 @@
     {
         "number":60,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -1826,7 +1826,7 @@
     {
         "number":61,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":624,
         "vertices":[
             [
@@ -1856,7 +1856,7 @@
     {
         "number":62,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -1886,7 +1886,7 @@
     {
         "number":63,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -1916,7 +1916,7 @@
     {
         "number":64,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -1946,7 +1946,7 @@
     {
         "number":65,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1105,
         "vertices":[
             [
@@ -1980,7 +1980,7 @@
     {
         "number":66,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1162,
         "vertices":[
             [
@@ -2010,7 +2010,7 @@
     {
         "number":67,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1060,
         "vertices":[
             [
@@ -2040,7 +2040,7 @@
     {
         "number":68,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2070,7 +2070,7 @@
     {
         "number":69,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2100,7 +2100,7 @@
     {
         "number":70,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2130,7 +2130,7 @@
     {
         "number":71,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2160,7 +2160,7 @@
     {
         "number":72,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2190,7 +2190,7 @@
     {
         "number":73,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2220,7 +2220,7 @@
     {
         "number":74,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1166,
         "vertices":[
             [
@@ -2250,7 +2250,7 @@
     {
         "number":75,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":870,
         "vertices":[
             [
@@ -2280,7 +2280,7 @@
     {
         "number":76,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":900,
         "vertices":[
             [
@@ -2310,7 +2310,7 @@
     {
         "number":77,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2340,7 +2340,7 @@
     {
         "number":78,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2370,7 +2370,7 @@
     {
         "number":79,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2400,7 +2400,7 @@
     {
         "number":80,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2430,7 +2430,7 @@
     {
         "number":81,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":801,
         "vertices":[
             [
@@ -2460,7 +2460,7 @@
     {
         "number":82,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2506,7 +2506,7 @@
     {
         "number":83,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2536,7 +2536,7 @@
     {
         "number":84,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2566,7 +2566,7 @@
     {
         "number":85,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1000,
         "vertices":[
             [
@@ -2596,7 +2596,7 @@
     {
         "number":86,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2626,7 +2626,7 @@
     {
         "number":87,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2656,7 +2656,7 @@
     {
         "number":88,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":676,
         "vertices":[
             [
@@ -2686,7 +2686,7 @@
     {
         "number":89,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":924,
         "vertices":[
             [
@@ -2716,7 +2716,7 @@
     {
         "number":90,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":938,
         "vertices":[
             [
@@ -2746,7 +2746,7 @@
     {
         "number":91,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1055,
         "vertices":[
             [
@@ -2776,7 +2776,7 @@
     {
         "number":92,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":956,
         "vertices":[
             [
@@ -2806,7 +2806,7 @@
     {
         "number":93,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":993,
         "vertices":[
             [
@@ -2836,7 +2836,7 @@
     {
         "number":94,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2874,7 +2874,7 @@
     {
         "number":95,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":710,
         "vertices":[
             [
@@ -2904,7 +2904,7 @@
     {
         "number":96,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":846,
         "vertices":[
             [
@@ -2934,7 +2934,7 @@
     {
         "number":97,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2964,7 +2964,7 @@
     {
         "number":98,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -2994,7 +2994,7 @@
     {
         "number":99,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -3024,7 +3024,7 @@
     {
         "number":100,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -3054,7 +3054,7 @@
     {
         "number":101,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -3084,7 +3084,7 @@
     {
         "number":102,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -3114,7 +3114,7 @@
     {
         "number":103,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":761,
         "vertices":[
             [
@@ -3144,7 +3144,7 @@
     {
         "number":104,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1000,
         "vertices":[
             [
@@ -3174,7 +3174,7 @@
     {
         "number":105,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":600,
         "vertices":[
             [
@@ -3204,7 +3204,7 @@
     {
         "number":106,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":900,
         "vertices":[
             [
@@ -3234,7 +3234,7 @@
     {
         "number":107,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":900,
         "vertices":[
             [
@@ -3264,7 +3264,7 @@
     {
         "number":108,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1003,
         "vertices":[
             [
@@ -3294,7 +3294,7 @@
     {
         "number":109,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1030,
         "vertices":[
             [
@@ -3324,7 +3324,7 @@
     {
         "number":110,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -3354,7 +3354,7 @@
     {
         "number":111,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -3384,7 +3384,7 @@
     {
         "number":112,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -3414,7 +3414,7 @@
     {
         "number":113,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1153,
         "vertices":[
             [
@@ -3444,7 +3444,7 @@
     {
         "number":114,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -3474,7 +3474,7 @@
     {
         "number":115,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -3504,7 +3504,7 @@
     {
         "number":116,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1097,
         "vertices":[
             [
@@ -3534,7 +3534,7 @@
     {
         "number":117,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1089,
         "vertices":[
             [
@@ -3564,7 +3564,7 @@
     {
         "number":118,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
@@ -3658,7 +3658,7 @@
     {
         "number":121,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
