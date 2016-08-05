@@ -1,4 +1,4 @@
-ymaps.ready(loadPolygons);
+ymaps.ready(init);
 var myMap;
 // var myPolyline;
 var gPolygons;
@@ -8,7 +8,7 @@ var cStrokeNA = '#454545';
 var cFillAvail = '#2ccb0035';
 var cFillNA = '#45454535';
 
-function loadPolygons() {
+function loadPolygons(callback) {
     console.log('loadPolygons()');
     var xmlhttp = new XMLHttpRequest();
     var url = "../data/estate-private.json";
@@ -17,7 +17,7 @@ function loadPolygons() {
         console.log(xmlhttp.responseText);
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             gPolygons = JSON.parse(xmlhttp.responseText);
-            init();
+            callback();
         }
     };
     xmlhttp.open("GET", url, true);
@@ -79,46 +79,31 @@ function animateToLira() {
 }
 
 function init() {
-    console.log('init()');
+    loadPolygons(function() {
+        myMap = new ymaps.Map("map", {
+            center: [55.030199, 82.92043],
+            zoom: 17,
+            type: 'yandex#hybrid',
+            avoidFractionalZoom: false,
+            restrictMapArea: true
+        });
 
-    document.onkeyup = function(e) {
-        if (e.ctrlKey && e.keyCode == 'M'.charCodeAt(0)) {
-            console.log('next!');
-            onNextPoly();
-        } else if (e.ctrlKey && e.key == 'Enter') {
-            console.log('next!');
-            onNextPoly();
-        } else if (e.key == 'Escape') {
-            if (gYmapsPolygon) {
-                gYmapsPolygon.editor.stopDrawing();
-                gYmapsPolygon.editor.stopEditing();
-            }
-        }
-        console.log(e);
-    };
+        myMap.behaviors.disable('rightMouseButtonMagnifier');
 
-    myMap = new ymaps.Map("map", {
-        center: [55.030199, 82.92043],
-        zoom: 17,
-        type: 'yandex#hybrid',
-        avoidFractionalZoom: false,
-        restrictMapArea: true
-    });
+        myMap.controls
+            .remove('zoomControl')
+            .remove('mapTools')
+            .remove('miniMap')
+            .remove('searchControl')
+            .remove('smallZoomControl')
+            .remove('trafficControl')
+            .remove('typeSelector');
 
-    myMap.behaviors.disable('rightMouseButtonMagnifier');
+        addGPolygonsToMap();
 
-    myMap.controls
-        .remove('zoomControl')
-        .remove('mapTools')
-        .remove('miniMap')
-        .remove('searchControl')
-        .remove('smallZoomControl')
-        .remove('trafficControl')
-        .remove('typeSelector');
-
-    addGPolygonsToMap();
-    // myMap.setCenter( [55.2167720694846, 82.79472452247623]);
-    // myMap.setZoom(16);
-    setTimeout(animateToLira, 700);
+        // myMap.setCenter( [55.2167720694846, 82.79472452247623]);
+        // myMap.setZoom(16);
+        setTimeout(animateToLira, 700);
+    })
 
 }
