@@ -1,4 +1,4 @@
-ymaps.ready(init);
+
 var myMap;
 // var myPolyline;
 var gPolygons;
@@ -14,7 +14,7 @@ function loadPolygons(callback) {
     var url = "../data/estate-private.json";
 
     xmlhttp.onreadystatechange = function() {
-        console.log(xmlhttp.responseText);
+//         console.log(xmlhttp.responseText);
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             gPolygons = JSON.parse(xmlhttp.responseText);
             callback();
@@ -79,6 +79,7 @@ function animateToLira() {
 }
 
 function init() {
+
     loadPolygons(function() {
         myMap = new ymaps.Map("map", {
             center: [55.030199, 82.92043],
@@ -104,6 +105,13 @@ function init() {
         // myMap.setCenter( [55.2167720694846, 82.79472452247623]);
         // myMap.setZoom(16);
         setTimeout(animateToLira, 700);
-    })
+
+    });
+
 
 }
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  ymaps.ready(init);
+  mdHelper.loadAsMarkdown('data/ads.md', 'info_panel');
+});

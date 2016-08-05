@@ -18,20 +18,21 @@ if (typeof showdown != 'undefined') {
             if (!container) return;
 
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', mdLink, true);
             xhr.onreadystatechange = function() {
-                if (this.readyState !== 4) return;
-                if (this.status !== 200) return;
-                // var converter = new showdown.Converter({
-                //         extensions: ['newsExt']
-                //     }),
-                // html = converter.makeHtml(this.responseText);
-                var converter = new showdown.Converter(),
-                    html = converter.makeHtml(this.responseText);
-                container.innerHTML = html;
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    // var converter = new showdown.Converter({
+                    //         extensions: ['newsExt']
+                    //     }),
+                    // html = converter.makeHtml(this.responseText);
+                    var converter = new showdown.Converter(),
+                        html = converter.makeHtml(this.responseText);
+                    container.innerHTML = html;
+                }
             };
+            xhr.open('GET', mdLink, true);
             xhr.send();
-        }
+        };
 
         return {
             loadAsMarkdown: loadAsMarkdown
