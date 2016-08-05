@@ -117,8 +117,8 @@ function init() {
         .remove('typeSelector');
 
     addGPolygonsToMap();
-    myMap.setCenter( [55.2167720694846, 82.79472452247623]);
-    myMap.setZoom(16);
-    // setTimeout(animateToLira, 700);
+    // myMap.setCenter( [55.2167720694846, 82.79472452247623]);
+    // myMap.setZoom(16);
+    setTimeout(animateToLira, 700);
 
 }
