@@ -20,6 +20,7 @@
     "showdown": "^1.4.2",
     "material-design-icons-dist": "^1.1.0",
     "fotorama": "^4.6.4",
-    "baguettebox.js": "^1.8.0"
+    "baguettebox.js": "^1.8.0",
+    "q": "1.0.1"
   }
 }

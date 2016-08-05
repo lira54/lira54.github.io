@@ -18,6 +18,11 @@ body::before {
     filter: blur(3px); */
 }
 
+span.reverse {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+
 .page-container {
   max-width: 1600px;
   width: 100%;

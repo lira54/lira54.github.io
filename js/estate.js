@@ -1,4 +1,3 @@
-
 var myMap;
 // var myPolyline;
 var gPolygons;
@@ -14,7 +13,7 @@ function loadPolygons(callback) {
     var url = "../data/estate-private.json";
 
     xmlhttp.onreadystatechange = function() {
-//         console.log(xmlhttp.responseText);
+        //         console.log(xmlhttp.responseText);
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             gPolygons = JSON.parse(xmlhttp.responseText);
             callback();
@@ -111,7 +110,69 @@ function init() {
 
 }
 
+function selectPoly(numref) {
+    numref = numref.replace('№', '');
+    console.log(numref);
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
-  ymaps.ready(init);
-  mdHelper.loadAsMarkdown('data/ads.md', 'info_panel');
+    ymaps.ready(init);
+    var xmlhttp = new XMLHttpRequest();
+    var url = "../ad-template.html";
+
+    xmlhttp.onreadystatechange = function() {
+        //         console.log(xmlhttp.responseText);
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          var adTemptate = xmlhttp.responseText;
+          showdown.extension('adExt', function() {
+              return [{
+                  type: 'output',
+                  filter: function(text) {
+                      var rPhone = /(\+\d(?:\s?-?\(?\d{3}\)?)(?:\s?-?\d){7}|(?:\d(?:\s?-?\d){6}))/gi;
+                      var rEstateNum = /(№\d*)/gi;
+                      var rSqareMetres = /([мМ]\^?2)/gi;
+                      var ads = text.split(/<hr\s?\/>\n*/);
+                      text = "";
+                      for (i in ads) {
+                          // text.replace(/<h2/gi, '<h2 class="mdl-typography--title"');
+
+                          // Phone numbers
+                          //https://regex101.com/r/kX3zZ4/2
+                          // TODO scramble phone numbers https://matt.berther.io/2009/01/15/hiding-an-email-address-from-spam-harvesters/
+                          var ad = ads[i];
+                          ad = ad.replace(rPhone, '<b>$1</b>');
+
+
+                          ad = ad.replace(rEstateNum, '<a href="#" onclick="selectPoly(\'$1\')">$1</a>');
+
+
+                          ad = ad.replace(rSqareMetres, 'м<sup>2</sup>');
+
+                          ad = adTemptate.replace('{{text}}', ad);
+
+                          // var rSeparator = /
+                              // var m;
+                              // while ((m = re.exec(text)) !== null) {
+                              //     if (m.index === re.lastIndex) {
+                              //         re.lastIndex++;
+                              //     }
+                              //     console.log(m);
+                              //     // View your result using the m-variable.
+                              //     // eg m[0] etc.
+                              // }
+                          text += ad;
+                      }
+                      return text;
+                  }
+              }]
+          });
+          mdHelper.with(['adExt']).load('data/ads.md').then(function(responseText) {
+              document.getElementById('info_panel').innerHTML = responseText;
+              console.log(responseText);
+          });
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
 });
