@@ -42,10 +42,11 @@ body::before {
     overflow: hidden;
     /* chrome bug fix */
     -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+    background-color: rgba(255,255,255,0.87)!important;
 }
 
 .flex-container {
-    padding: 0;
+    padding: 8px;
     margin: 0;
     list-style: none;
     display: -webkit-box;
