@@ -117,6 +117,9 @@ function selectPoly(numref) {
 
 document.addEventListener("DOMContentLoaded", function(event) {
     ymaps.ready(init);
+
+    mdHelper.loadAsMarkdown('data/buying-options.md', 'buying_options');
+
     var xmlhttp = new XMLHttpRequest();
     var url = "../ad-template.html";
 
@@ -141,13 +144,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
                           // TODO scramble phone numbers https://matt.berther.io/2009/01/15/hiding-an-email-address-from-spam-harvesters/
                           var ad = ads[i];
                           ad = ad.replace(rPhone, '<b>$1</b>');
-
-
                           ad = ad.replace(rEstateNum, '<a href="#" onclick="selectPoly(\'$1\')">$1</a>');
-
-
                           ad = ad.replace(rSqareMetres, 'м<sup>2</sup>');
-
                           ad = adTemptate.replace('{{text}}', ad);
 
                           // var rSeparator = /
@@ -166,9 +164,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
                   }
               }]
           });
-          mdHelper.with(['adExt']).load('data/ads.md').then(function(responseText) {
+          mdHelper.with(['adExt']).load('data/buying-options.md').then(function(responseText) {
               document.getElementById('info_panel').innerHTML = responseText;
               console.log(responseText);
+          });
+          mdHelper.with(['adExt']).load('data/ads.md').then(function(responseText) {
+              // document.getElementById('info_panel').innerHTML = responseText;
+              // console.log(responseText);
           });
         }
     };

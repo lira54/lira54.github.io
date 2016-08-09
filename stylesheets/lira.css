@@ -51,7 +51,6 @@ span.reverse {
 }
 
 .flex-container {
-    padding: 8px;
     margin: 0;
     list-style: none;
     display: -webkit-box;
@@ -78,6 +77,15 @@ span.reverse {
 .page-content-text {
     padding: 56px 56px;
 }
+
+.page-content {
+    padding: 8px;
+}
+
+#buying_options {
+  padding: 8px 16px;
+}
+
 
 .ymaps-container {
     position: relative;
