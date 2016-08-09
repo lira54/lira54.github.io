@@ -125,12 +125,8 @@ span.reverse {
     margin-top: 16px;
 }
 
-.lira-phone-email.lira-logo-index {
-    width: 205px;
-    height: 64px;
-    /* margin: 32px 16px 24px; */
-    /* margin-left: auto; */
-    align-self: flex-end;
+.lira-logo-font.small {
+    font-size: 18px;
 }
 
 .lira-header {
