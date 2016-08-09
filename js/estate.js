@@ -63,7 +63,7 @@ function polyFromMetadata(pMetadata) {
 }
 
 function animateToLira() {
-    var mapCenter = [55.2167720694846, 82.79472452247623];
+    var mapCenter = [55.21543484859789, 82.79498737895968];
     myMap.setZoom(13, {
         duration: 1200
     }).then(function() {
@@ -91,7 +91,7 @@ function init() {
         myMap.behaviors.disable('rightMouseButtonMagnifier');
 
         myMap.controls
-            .remove('zoomControl')
+            // .remove('zoomControl')
             .remove('mapTools')
             .remove('miniMap')
             .remove('searchControl')
