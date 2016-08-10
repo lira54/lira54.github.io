@@ -7,11 +7,27 @@ var cStrokeNA = '#454545';
 var cFillAvail = '#2ccb0035';
 var cFillNA = '#45454535';
 
+var cStroke = {avail:'#5cfb00', na: '#454545', ad: '#ff9800', selected: '#00bcd4'};
+var cFill = {avail:'#2ccb0035', na: '#45454535', ad:  '#ff980035', selected: '#00bcd435'};
+
+// https://tech.yandex.ru/maps/doc/jsapi/2.0/ref/reference/graphics.style.stroke-docpage/
+var cStrokeStyle = {avail:'shortdot', na: 'shortdot', ad:  'shortdot', selected: 'solid'};
+var cStrokeWidth = {avail: 2, na: 1, ad:  2, selected: 2};
+var cStat = {avail:'Свободен', na: 'Занят', ad:  'Продается по объявлению', selected: null};
+
 var polyProvider = (function() {
 
     function polyFromMetadata(pMetadata) {
+
+// TODO selected
+        var selector = 'na';
+        if (pMetadata.isOnSale) {
+            selector = 'ad';
+        } else if (pMetadata.isAvailable) {
+            selector = 'avail';
+        }
         var statusColor = pMetadata.isAvailable ? "#2ccb00" : cStrokeNA;
-        var statusText = pMetadata.isAvailable ? 'Свободен' : 'Занят';
+        var statusText = cStat[selector];
         var statusString = '<font color="' + statusColor + '">' + statusText + '</font>'
         var bCont = '<b><h5>Участок №' + pMetadata.number +
             '</h5></b>\n<h6>Площадь: ' + pMetadata.area + 'м&#178</h6>' +
@@ -19,10 +35,10 @@ var polyProvider = (function() {
         var hCont = 'Участок № ' + pMetadata.number +
             ' | ' + pMetadata.area + 'м&#178 | ' + statusString;
 
-        var stroke = pMetadata.isAvailable ? cStrokeAvail : cStrokeNA;
-        var fill = pMetadata.isAvailable ? cFillAvail : cFillNA;
-        var width = pMetadata.isAvailable ? 2 : 1;
-        var sStyle = pMetadata.isAvailable ? 'shortdot' : 'shortdot';
+        var stroke = cStroke[selector];
+        var fill = cFill[selector];
+        var width = cStrokeWidth[selector];
+        var sStyle = cStrokeStyle[selector];
         var poly = new ymaps.Polygon(
             pMetadata.vertices, {
                 balloonContent: bCont,
@@ -58,8 +74,9 @@ var polyProvider = (function() {
 
     function amendWithAds(polyMetadata, adsMarkdown) {
         adsMarkdown.forEach(function(ad, i, adArr) {
+            console.log(ad);
             polyMetadata.forEach(function(poly, j, pArr) {
-                if (ad.estateId === poly.number) {
+                if (ad.estateNum === poly.number) {
                     poly.isOnSale = true;
                     // poly.
                 }
@@ -136,7 +153,7 @@ var adProvider = (function() {
                 var m;
                 var newAd = {};
                 m = rEstateNum.exec(section)
-                newAd.estateNum = m[1]; // only capturing group -- the number
+                newAd.estateNum = parseInt(m[1]); // only capturing group -- the number
                     // TODO
                     // View your result using the m-variable.
                     // eg m[0] etc.
@@ -220,6 +237,7 @@ function init() {
     polyProvider.loadPolygons(function(polyMetadata) {
         // TODO global polyMetadata if neeeded
         adProvider.loadAds(function(html, ads) {
+            polyProvider.amendWithAds(polyMetadata, ads);
             html = html.replace(adProvider.NUM_CLICKED_PLACEHOLDER, 'selectPoly');
             document.getElementById('ads-container').innerHTML = html;
             console.log('--------- HTML ---------')
