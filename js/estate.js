@@ -31,7 +31,7 @@ function addGPolygonsToMap() {
 
 function polyFromMetadata(pMetadata) {
     var statusColor = pMetadata.isAvailable ? "#2ccb00" : cStrokeNA;
-    var statusText = pMetadata.isAvailable ? 'Свободен' : 'Продан';
+    var statusText = pMetadata.isAvailable ? 'Свободен' : 'Занят';
     var statusString = '<font color="' + statusColor + '">' + statusText + '</font>'
     var bCont = '<b><h5>Участок №' + pMetadata.number +
         '</h5></b>\n<h6>Площадь: ' + pMetadata.area + 'м&#178</h6>' +
