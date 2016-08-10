@@ -1,25 +1,50 @@
 var myMap;
 // var myPolyline;
-// var gPolygons;
+var gPolygons = {};
 
 var cStrokeAvail = '#5cfb00';
 var cStrokeNA = '#454545';
 var cFillAvail = '#2ccb0035';
 var cFillNA = '#45454535';
 
-var cStroke = {avail:'#5cfb00', na: '#454545', ad: '#ff9800', selected: '#00bcd4'};
-var cFill = {avail:'#2ccb0035', na: '#45454535', ad:  '#ff980035', selected: '#00bcd435'};
+var cStroke = {
+    avail: '#5cfb00',
+    na: '#454545',
+    ad: '#ff9800',
+    selected: '#00bcd4'
+};
+var cFill = {
+    avail: '#2ccb0035',
+    na: '#45454535',
+    ad: '#ff980035',
+    selected: '#00bcd435'
+};
 
 // https://tech.yandex.ru/maps/doc/jsapi/2.0/ref/reference/graphics.style.stroke-docpage/
-var cStrokeStyle = {avail:'shortdot', na: 'shortdot', ad:  'shortdot', selected: 'solid'};
-var cStrokeWidth = {avail: 2, na: 1, ad:  2, selected: 2};
-var cStat = {avail:'Свободен', na: 'Занят', ad:  'Продается по объявлению', selected: null};
+var cStrokeStyle = {
+    avail: 'shortdot',
+    na: 'shortdot',
+    ad: 'shortdot',
+    selected: 'solid'
+};
+var cStrokeWidth = {
+    avail: 2,
+    na: 1,
+    ad: 2,
+    selected: 2
+};
+var cStat = {
+    avail: 'Свободен',
+    na: 'Занят',
+    ad: 'Продается по объявлению',
+    selected: null
+};
 
 var polyProvider = (function() {
 
     function polyFromMetadata(pMetadata) {
 
-// TODO selected
+        // TODO selected
         var selector = 'na';
         if (pMetadata.isOnSale) {
             selector = 'ad';
@@ -110,17 +135,17 @@ var adProvider = (function() {
         xmlhttp.send();
     }
 
-    var _loadAdsTemplateReady = function (callback) {
+    var _loadAdsTemplateReady = function(callback) {
         showdown.extension('adExt', function() {
             return [{
                 type: 'output',
                 filter: function(text) {
                     var rPhone = /(\+\d(?:\s?-?\(?\d{3}\)?)(?:\s?-?\d){7}|(?:\d(?:\s?-?\d){6}))/gi;
-                    var rEstateNum = /(№\d*)/gi;
+                    var rEstateNum = /№(\d*)/gi;
                     var rSqareMetres = /([мМ]\^?2)/gi;
                     var ads = text.split(/<hr\s?\/>\n*/);
                     text = text.replace(rPhone, '<b>$1</b>');
-                    text = text.replace(rEstateNum, '<a href="#" class="estate-number" onclick="' + NUM_CLICKED_PLACEHOLDER + '(\'$1\')">$1</a>');
+                    text = text.replace(rEstateNum, '<a href="#" class="estate-number" onclick="' + NUM_CLICKED_PLACEHOLDER + '($1)">№$1</a>');
                     text = text.replace(rSqareMetres, 'м<sup>2</sup>');
 
                     return text;
@@ -154,9 +179,9 @@ var adProvider = (function() {
                 var newAd = {};
                 m = rEstateNum.exec(section)
                 newAd.estateNum = parseInt(m[1]); // only capturing group -- the number
-                    // TODO
-                    // View your result using the m-variable.
-                    // eg m[0] etc.
+                // TODO
+                // View your result using the m-variable.
+                // eg m[0] etc.
                 // console.log(newAd);
 
 
@@ -173,7 +198,7 @@ var adProvider = (function() {
 
     function loadAds(callback) {
         if (!_template) {
-            _loadTemplate(function () {
+            _loadTemplate(function() {
                 _loadAdsTemplateReady(callback);
             });
         } else {
@@ -191,7 +216,9 @@ var adProvider = (function() {
 
 function addPolygonsToMap(polyMetadata) {
     polyMetadata.forEach(function(val, i, array) {
-        myMap.geoObjects.add(polyProvider.polyFromMetadata(val));
+        var poly = polyProvider.polyFromMetadata(val);
+        gPolygons[val.number] = poly;
+        myMap.geoObjects.add(poly);
     });
 }
 
@@ -252,7 +279,10 @@ function init() {
 }
 
 function selectPoly(numref) {
-    numref = numref.replace('№', '');
+    // gPolygons[numref].options.set('strokeColor',cStroke['selected']);
+    var bounds = gPolygons[numref].geometry.getBounds();
+    var center = [(bounds[0][0] + bounds[1][0]) / 2, (bounds[0][1] + bounds[1][1]) / 2];
+    myMap.setCenter(center, 17, {duration: 700});
     console.log(numref);
 }
 
