@@ -24,11 +24,6 @@ if (typeof showdown != 'undefined' && typeof Q != 'undefined') {
             var result = Q.defer();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                    console.log(xhr.responseText);
-                    // var converter = new showdown.Converter({
-                    //         extensions: ['newsExt']
-                    //     }),
-                    // html = converter.makeHtml(this.responseText);
                     var converter = new showdown.Converter(),
                         html = converter.makeHtml(this.responseText);
                     container.innerHTML = html;

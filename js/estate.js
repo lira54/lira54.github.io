@@ -83,12 +83,10 @@ var polyProvider = (function() {
     }
 
     function loadPolygons(callback) {
-        console.log('loadPolygons()');
         var xmlhttp = new XMLHttpRequest();
         var url = "../data/estate-private.json";
 
         xmlhttp.onreadystatechange = function() {
-            //         console.log(xmlhttp.responseText);
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 callback(JSON.parse(xmlhttp.responseText));
             }
@@ -99,11 +97,9 @@ var polyProvider = (function() {
 
     function amendWithAds(polyMetadata, adsMarkdown) {
         adsMarkdown.forEach(function(ad, i, adArr) {
-            console.log(ad);
             polyMetadata.forEach(function(poly, j, pArr) {
                 if (ad.estateNum === poly.number) {
                     poly.isOnSale = true;
-                    // poly.
                 }
             });
         });
@@ -124,11 +120,9 @@ var adProvider = (function() {
         var url = "../ad-template.html";
 
         xmlhttp.onreadystatechange = function() {
-            //         console.log(xmlhttp.responseText);
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 _template = xmlhttp.responseText;
                 callback();
-
             }
         };
         xmlhttp.open("GET", url, true);
@@ -267,10 +261,10 @@ function init() {
             polyProvider.amendWithAds(polyMetadata, ads);
             html = html.replace(adProvider.NUM_CLICKED_PLACEHOLDER, 'selectPoly');
             document.getElementById('ads-container').innerHTML = html;
-            console.log('--------- HTML ---------')
-            console.log(html);
-            console.log('--------- ADS ---------')
-            console.log(ads);
+            // console.log('--------- HTML ---------')
+            // console.log(html);
+            // console.log('--------- ADS ---------')
+            // console.log(ads);
             addPolygonsToMap(polyMetadata);
         });
 
@@ -282,7 +276,9 @@ function selectPoly(numref) {
     // gPolygons[numref].options.set('strokeColor',cStroke['selected']);
     var bounds = gPolygons[numref].geometry.getBounds();
     var center = [(bounds[0][0] + bounds[1][0]) / 2, (bounds[0][1] + bounds[1][1]) / 2];
-    myMap.setCenter(center, 17, {duration: 700});
+    myMap.setCenter(center, 17, {
+        duration: 700
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
