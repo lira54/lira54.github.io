@@ -165,7 +165,7 @@ var adProvider = (function() {
     }
 
     return {
-        NUM_CLICKED_PLACEHOLDER: NUM_CLICKED_PLACEHOLDER,
+        NUM_CLICKED_PLACEHOLDER: /%NUM_CLICKED_PLACEHOLDER%/g,
         loadAds: loadAds
     }
 })();
