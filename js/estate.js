@@ -194,7 +194,7 @@ function animateToLira() {
 }
 
 function init() {
-    mdHelper.loadAsMarkdown('data/buying-options.md', 'buying_options');
+    mdHelper.loadAsMarkdown('data/buying-options.md', 'conditions-container');
 
     myMap = new ymaps.Map("map", {
         center: [55.030199, 82.92043],
