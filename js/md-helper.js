@@ -40,27 +40,24 @@ if (typeof showdown != 'undefined' && typeof Q != 'undefined') {
             return result.promise;
         };
 
-        obj.with = function(extensions) {
-            var _converter = new showdown.Converter({
+        obj.load = function(url) {
+            var xhr = new XMLHttpRequest();
+            var deferred = Q.defer();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    deferred.resolve(this.responseText);
+                }
+            };
+            xhr.open('GET', url, true);
+            xhr.send();
+            return deferred.promise;
+        };
+
+        obj.converter = function(extensions) {
+            return new showdown.Converter({
                 extensions: extensions
             });
-
-            return {
-                load: function(url) {
-                    var xhr = new XMLHttpRequest();
-                    var deferred = Q.defer();
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                            html = _converter.makeHtml(this.responseText)
-                            deferred.resolve(html);
-                        }
-                    };
-                    xhr.open('GET', url, true);
-                    xhr.send();
-                    return deferred.promise;
-                }
-            }
-        }
+        };
 
         return obj;
 

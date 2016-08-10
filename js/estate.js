@@ -75,6 +75,7 @@ var polyProvider = (function() {
 })();
 
 var adProvider = (function() {
+    var NUM_CLICKED_PLACEHOLDER = '%NUM_CLICKED_PLACEHOLDER%';
     var _template;
     var _loadTemplate = function(callback) {
         var xmlhttp = new XMLHttpRequest();
@@ -101,31 +102,10 @@ var adProvider = (function() {
                     var rEstateNum = /(№\d*)/gi;
                     var rSqareMetres = /([мМ]\^?2)/gi;
                     var ads = text.split(/<hr\s?\/>\n*/);
-                    text = "";
-                    for (i in ads) {
-                        // text.replace(/<h2/gi, '<h2 class="mdl-typography--title"');
+                    text = text.replace(rPhone, '<b>$1</b>');
+                    text = text.replace(rEstateNum, '<a href="#" class="estate-number" onclick="' + NUM_CLICKED_PLACEHOLDER + '(\'$1\')">$1</a>');
+                    text = text.replace(rSqareMetres, 'м<sup>2</sup>');
 
-                        // Phone numbers
-                        //https://regex101.com/r/kX3zZ4/2
-                        // TODO scramble phone numbers https://matt.berther.io/2009/01/15/hiding-an-email-address-from-spam-harvesters/
-                        var ad = ads[i];
-                        ad = ad.replace(rPhone, '<b>$1</b>');
-                        ad = ad.replace(rEstateNum, '<a href="#" onclick="selectPoly(\'$1\')">$1</a>');
-                        ad = ad.replace(rSqareMetres, 'м<sup>2</sup>');
-                        ad = _template.replace('{{text}}', ad);
-
-                        // var rSeparator = /
-                        // var m;
-                        // while ((m = re.exec(text)) !== null) {
-                        //     if (m.index === re.lastIndex) {
-                        //         re.lastIndex++;
-                        //     }
-                        //     console.log(m);
-                        //     // View your result using the m-variable.
-                        //     // eg m[0] etc.
-                        // }
-                        text += ad;
-                    }
                     return text;
                 }
             }]
@@ -134,9 +114,40 @@ var adProvider = (function() {
         //     document.getElementById('info_panel').innerHTML = responseText;
         //     console.log(responseText);
         // });
-        mdHelper.with(['adExt']).load('data/ads.md').then(function(responseText) {
+        mdHelper.load('data/ads.md').then(function(responseText) {
+            var ads = [];
+            var conv = mdHelper.converter(['adExt']);
+            var html = conv.makeHtml(responseText);
+
+            var txtSections = html.split(/<hr\s?\/>\n*/);
+
+            html = "";
+            for (i in txtSections) {
+                // text.replace(/<h2/gi, '<h2 class="mdl-typography--title"');
+
+                // Phone numbers
+                //https://regex101.com/r/kX3zZ4/2
+                // TODO scramble phone numbers https://matt.berther.io/2009/01/15/hiding-an-email-address-from-spam-harvesters/
+                var section = txtSections[i];
+
+                // TODO this is copypaste
+                var rEstateNum = /№(\d*)/i;
+                var m;
+                var newAd = {};
+                m = rEstateNum.exec(section)
+                newAd.estateNum = m[1]; // only capturing group -- the number
+                    // TODO
+                    // View your result using the m-variable.
+                    // eg m[0] etc.
+                // console.log(newAd);
+
+
+                section = _template.replace('{{text}}', section);
+                html += section;
+                ads.push(newAd);
+            }
             // FIXME
-            callback(responseText);
+            callback(html, ads);
             // document.getElementById('info_panel').innerHTML = responseText;
             // console.log(responseText);
         });
@@ -153,6 +164,7 @@ var adProvider = (function() {
     }
 
     return {
+        NUM_CLICKED_PLACEHOLDER: NUM_CLICKED_PLACEHOLDER,
         loadAds: loadAds
     }
 })();
@@ -206,7 +218,12 @@ function init() {
     myMap.behaviors.disable('rightMouseButtonMagnifier');
     polyProvider.loadPolygons(function(polyMetadata) {
         // TODO global polyMetadata if neeeded
-        adProvider.loadAds(function(ads) {
+        adProvider.loadAds(function(html, ads) {
+            html = html.replace(adProvider.NUM_CLICKED_PLACEHOLDER, 'selectPoly');
+            document.getElementById('ads-container').innerHTML = html;
+            console.log('--------- HTML ---------')
+            console.log(html);
+            console.log('--------- ADS ---------')
             console.log(ads);
             addPolygonsToMap(polyMetadata);
         });

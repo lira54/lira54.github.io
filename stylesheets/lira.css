@@ -95,6 +95,25 @@ span.reverse {
     z-index: 1;
 }
 
+.map-overlay-container {
+    display: flex;
+    position: relative;
+    flex-flow: column;
+}
+
+.ads-container {
+    position: absolute;
+    margin-top: 48px;
+    margin-right: 4px;
+    max-width: 40%;
+    max-height: calc(100% - 116px);
+    top: 0;
+    right: 0;
+    z-index: 2;
+    /* align-self: flex-end; */
+    /* float: right; */
+}
+
 .lira-logo {
     background: url(../images/logo.png) 50% no-repeat;
     background-size: cover;
