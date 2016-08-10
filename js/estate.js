@@ -283,7 +283,6 @@ function selectPoly(numref) {
     var bounds = gPolygons[numref].geometry.getBounds();
     var center = [(bounds[0][0] + bounds[1][0]) / 2, (bounds[0][1] + bounds[1][1]) / 2];
     myMap.setCenter(center, 17, {duration: 700});
-    console.log(numref);
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {

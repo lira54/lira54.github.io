@@ -114,6 +114,7 @@ span.reverse {
     /* align-self: flex-end; */
     /* float: right; */
     padding: 8px;
+    overflow-y: auto;
 }
 
 .lira-logo {
