@@ -116,12 +116,13 @@ var adProvider = (function() {
         // });
         mdHelper.load('data/ads.md').then(function(responseText) {
             var ads = [];
+            // var conv = mdHelper.converter(['adExt']);
             var conv = mdHelper.converter(['adExt']);
             var html = conv.makeHtml(responseText);
 
             var txtSections = html.split(/<hr\s?\/>\n*/);
 
-            html = "";
+            // html = "";
             for (i in txtSections) {
                 // text.replace(/<h2/gi, '<h2 class="mdl-typography--title"');
 
@@ -142,8 +143,8 @@ var adProvider = (function() {
                 // console.log(newAd);
 
 
-                section = _template.replace('{{text}}', section);
-                html += section;
+                // section = _template.replace('{{text}}', section);
+                // html += section;
                 ads.push(newAd);
             }
             // FIXME
