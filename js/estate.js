@@ -119,14 +119,17 @@ var adProvider = (function() {
         var xmlhttp = new XMLHttpRequest();
         var url = "../ad-template.html";
 
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                _template = xmlhttp.responseText;
-                callback();
-            }
-        };
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();
+        // xmlhttp.onreadystatechange = function() {
+        //     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        //         _template = xmlhttp.responseText;
+        //         callback();
+        //     }
+        // };
+        // xmlhttp.open("GET", url, true);
+        // xmlhttp.send();
+
+        // we don't need the template for now
+        callback();
     }
 
     var _loadAdsTemplateReady = function(callback) {
