@@ -128,13 +128,22 @@ span.reverse {
 }
 
 .lira-logo.lira-logo-index {
-    height: 145px;
-    width: 397px;
+    position: relative;
+    /* width: 40%; */
+    /* height: 30vh; */
     margin: 0;
     left: 0;
-    margin-right: auto;
-    align-self: center;
-    margin-left: -56px;
+    /* margin-right: auto; */
+    align-self: flex-start;
+    margin-left: 0.5vw;
+    background-size: 100% auto;
+    /* background-clip: inherit; */
+    width: 30vw;
+    height: 12vw;
+    /* flex-grow: 4; */
+    margin-top: 10vh;
+    /* height: 100%; */
+    /* margin-left: -10%; */
 }
 
 .lira-logo-font {
@@ -142,9 +151,14 @@ span.reverse {
     line-height: 1;
     color: #0000ff;
     font-weight: bold;
-    font-size: 28px;
-    margin-right: 26px;
-    margin-top: 16px;
+    font-size: 2vw;
+    /*margin-right: 10v;*/
+    /* margin-top: 16px; */
+    /* width: 60%; */
+    /* margin-right: 24px; */
+    text-align: end;
+    flex-grow: 6;
+    /* align-self: flex-end; */
 }
 
 .lira-logo-font.small {
@@ -162,13 +176,14 @@ span.reverse {
 
 .justify-center {
   justify-content: center;
+  display: flex;
 }
 
 .lira-logo-container {
     width: 824px;
     position: relative;
     background-color: transparent;
-    margin-top: 5%;
+    /*     margin-top: 5%; */
     display: flex;
     /*     background-image: url(../images/header-bg.jpg); */
     /*     background-size: cover; */
@@ -189,8 +204,11 @@ span.reverse {
 }
 
 .lira-main-header .mdl-layout__tab-bar-container {
-    margin-top: 392px;
+    position: absolute;
+    /* margin-top: 66%; */
     /* top: 0px; */
+    /* top: 66%; */
+    bottom: 0px;
 }
 
 .lira-main-header .mdl-layout__tab-bar-button {
@@ -202,6 +220,10 @@ span.reverse {
     height: 48px!important;
 }
 
+.lira-header.lira-main-header {
+    height: calc(66% + 48px/2);
+}
+
 .unset-height {
     height: unset;
 }
@@ -211,33 +233,48 @@ span.reverse {
 }
 
 .lira-header .mdl-layout__tab-bar-container {
+    /* position: absolute; */
     height: 48px;
+    /* bottom: 0px; */
+    /* top: unset; */
 }
 
 .lira-tab-bold {
   font-weight: bold;
   flex-grow: 1;
+  font-size: 16px;
 }
 
 .lira-index-content-width {
-  width: 824px;
+  width: 70%;
+  /*min-width: min(800px, 700px);*/
+  height: 100%;
+  /* min-width: 400px; */
+}
+.lira-index-content-width .lira-logo-font {
+  margin-right: 3.35vw;
+  margin-top: 10vh;
 }
 
 .lira-tab-container {
   justify-content: center;
   display: flex;
+  /* align-items: center; */
 }
 
 .lira-navigation {
     justify-content: center;
     width: auto;
     padding: unset;
+    overflow: hidden;
 }
 
 .lira-main-navigation {
     height: 48px;
     /*top: 300px;*/
     background-color: rgba(0,0,255, 0.7);
+    /* display: flex; */
+    /* justify-content: center; */
 }
 
 .is-compact .mdl-layout__tab-bar-container {
@@ -321,4 +358,8 @@ span.reverse {
 .legend-sample.selected {
     fill: rgb(0, 188, 212);
     stroke: rgb(0, 188, 212);
+}
+
+.height-100 {
+    height: 100%;
 }
