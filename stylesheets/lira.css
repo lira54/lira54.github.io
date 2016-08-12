@@ -119,12 +119,13 @@ span.reverse {
 
 .lira-logo {
     background: url(../images/logo.png) 50% no-repeat;
-    background-size: cover;
+    background-size: contain;
     /*height: 110px;
     width: 301px;*/
     height: 64px;
-    width: 175px;
-    margin: 4px auto 4px;
+    width: 171px;
+    margin: auto 0;
+    align-self: flex-start;
 }
 
 .lira-logo.lira-logo-index {
@@ -157,12 +158,15 @@ span.reverse {
     /* width: 60%; */
     /* margin-right: 24px; */
     text-align: left;
-    flex-grow: 6;
+    /* flex-grow: 6; */
     /* align-self: flex-end; */
 }
 
 .lira-logo-font.small {
     font-size: 18px;
+    /* margin-right: 1.4vw; */
+    margin: auto 0px;
+    align-self: flex-end;
 }
 
 .lira-header {
@@ -243,6 +247,13 @@ span.reverse {
   font-weight: bold;
   flex-grow: 1;
   font-size: 16px;
+}
+
+.lira-content-width-center {
+    width: calc(66.6666666667% - 16px);
+    align-self: center;
+    /* position: relative; */
+    justify-content: space-between;
 }
 
 .lira-index-content-width {
