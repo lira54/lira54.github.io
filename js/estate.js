@@ -10,13 +10,16 @@ var cFillNA = '#45454535';
 var cStroke = {
     avail: '#5cfb00',
     na: '#454545',
-    ad: '#ff9800',
+//     ad: '#ff9800',
+    //TODO green for ad -- because of the icon
+    ad: '#5cfb00',
     selected: '#00bcd4'
 };
 var cFill = {
     avail: '#2ccb0035',
     na: '#45454535',
-    ad: '#ff980035',
+//     ad: '#ff980035',
+    ad: '#2ccb0035',
     selected: '#00bcd435'
 };
 
@@ -36,8 +39,14 @@ var cStrokeWidth = {
 var cStat = {
     avail: 'Свободен',
     na: 'Занят',
-    ad: 'Продается по объявлению',
+    ad: '<hr>',
     selected: null
+};
+var cStatusColor = {
+    avail: '#2ccb00',
+    na: cStroke.na,
+    ad: cStroke.ad,
+    selected: cStroke.selected
 };
 
 var polyProvider = (function() {
@@ -51,12 +60,15 @@ var polyProvider = (function() {
         } else if (pMetadata.isAvailable) {
             selector = 'avail';
         }
-        var statusColor = pMetadata.isAvailable ? "#2ccb00" : cStrokeNA;
+        var statusColor = cStatusColor[selector];
         var statusText = cStat[selector];
         var statusString = '<font color="' + statusColor + '">' + statusText + '</font>'
         var bCont = '<b><h5>Участок №' + pMetadata.number +
-            '</h5></b>\n<h6>Площадь: ' + pMetadata.area + 'м&#178</h6>' +
+            '</h5></b>\n<h6>' + pMetadata.area + 'м&#178</h6>' +
             '\n<b><h6>' + statusString + '</h6></b>';
+        if (pMetadata.ad) {
+            bCont += pMetadata.ad.html;
+        }
         var hCont = 'Участок № ' + pMetadata.number +
             ' | ' + pMetadata.area + 'м&#178 | ' + statusString;
 
@@ -100,6 +112,7 @@ var polyProvider = (function() {
             polyMetadata.forEach(function(poly, j, pArr) {
                 if (ad.estateNum === poly.number) {
                     poly.isOnSale = true;
+                    poly.ad = ad;
                 }
             });
         });
@@ -138,11 +151,11 @@ var adProvider = (function() {
                 type: 'output',
                 filter: function(text) {
                     var rPhone = /(\+\d(?:\s?-?\(?\d{3}\)?)(?:\s?-?\d){7}|(?:\d(?:\s?-?\d){6}))/gi;
-                    var rEstateNum = /№(\d*)/gi;
+//                     var rEstateNum = /№(\d*)/gi;
                     var rSqareMetres = /([мМ]\^?2)/gi;
                     var ads = text.split(/<hr\s?\/>\n*/);
                     text = text.replace(rPhone, '<b>$1</b>');
-                    text = text.replace(rEstateNum, '<a href="#" class="estate-number" onclick="' + NUM_CLICKED_PLACEHOLDER + '($1)">№$1</a>');
+//                     text = text.replace(rEstateNum, '<a href="#" class="estate-number" onclick="' + NUM_CLICKED_PLACEHOLDER + '($1)">№$1</a>');
                     text = text.replace(rSqareMetres, 'м<sup>2</sup>');
 
                     return text;
@@ -165,9 +178,6 @@ var adProvider = (function() {
             for (i in txtSections) {
                 // text.replace(/<h2/gi, '<h2 class="mdl-typography--title"');
 
-                // Phone numbers
-                //https://regex101.com/r/kX3zZ4/2
-                // TODO scramble phone numbers https://matt.berther.io/2009/01/15/hiding-an-email-address-from-spam-harvesters/
                 var section = txtSections[i];
 
                 // TODO this is copypaste
@@ -176,6 +186,7 @@ var adProvider = (function() {
                 var newAd = {};
                 m = rEstateNum.exec(section)
                 newAd.estateNum = parseInt(m[1]); // only capturing group -- the number
+                newAd.html = section;
                 // TODO
                 // View your result using the m-variable.
                 // eg m[0] etc.
@@ -216,11 +227,28 @@ function addPolygonsToMap(polyMetadata) {
         var poly = polyProvider.polyFromMetadata(val);
         gPolygons[val.number] = poly;
         myMap.geoObjects.add(poly);
+        //FIXME hack
+
+        if(val.ad) {
+            // https://tech.yandex.ru/maps/jsbox/2.1/placemark_shape
+        var polygonLayout = ymaps.templateLayoutFactory.createClass('<div style="text-align:center; postion:relative;"><i style="color:#ff9800;position:absolute;top:-20px; font-size:24px;" class="material-icons">&#xE0C9;</i></div>');
+        var placemark = new ymaps.Placemark(centerFromBounds(poly.geometry.getBounds()),
+        null, {
+            iconLayout: polygonLayout
+            // Описываем фигуру активной области "Полигон".
+           
+        }
+        );
+        myMap.geoObjects.add(placemark);
+        }
     });
 }
 
 function animateToLira() {
     var mapCenter = [55.21543484859789, 82.79498737895968];
+    myMap.setCenter(mapCenter);
+    myMap.setZoom(16);
+    return;
     myMap.setZoom(13, {
         duration: 1200
     }).then(function() {
@@ -253,8 +281,6 @@ function init() {
         .remove('smallZoomControl')
         .remove('trafficControl')
         .remove('typeSelector');
-    // myMap.setCenter( [55.2167720694846, 82.79472452247623]);
-    // myMap.setZoom(16);
     setTimeout(animateToLira, 700);
 
     myMap.behaviors.disable('rightMouseButtonMagnifier');
@@ -264,10 +290,6 @@ function init() {
             polyProvider.amendWithAds(polyMetadata, ads);
             html = html.replace(adProvider.NUM_CLICKED_PLACEHOLDER, 'selectPoly');
             document.getElementById('ads-container').innerHTML = html;
-            // console.log('--------- HTML ---------')
-            // console.log(html);
-            // console.log('--------- ADS ---------')
-            // console.log(ads);
             addPolygonsToMap(polyMetadata);
         });
 
@@ -275,10 +297,14 @@ function init() {
 
 }
 
+function centerFromBounds(bounds) {
+    return [(bounds[0][0] + bounds[1][0]) / 2, (bounds[0][1] + bounds[1][1]) / 2];
+}
+
 function selectPoly(numref) {
     // gPolygons[numref].options.set('strokeColor',cStroke['selected']);
     var bounds = gPolygons[numref].geometry.getBounds();
-    var center = [(bounds[0][0] + bounds[1][0]) / 2, (bounds[0][1] + bounds[1][1]) / 2];
+    var center = centerFromBounds(bounds);
     myMap.setCenter(center, 17, {
         duration: 700
     });
