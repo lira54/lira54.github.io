@@ -102,6 +102,11 @@ span.reverse {
     flex-flow: column;
 }
 
+.mat-ico-font-align {
+  vertical-align: middle;
+/*   padding-bottom: 3px; */
+}
+
 .lira-logo {
     background: url(../images/logo.png) 50% no-repeat;
     background-size: contain;
@@ -321,14 +326,16 @@ span.reverse {
     position: absolute;
     /* margin-top: 48px; */
     /* margin-right: 4px; */
-    max-width: 40%;
+    align-self:center;
+    max-width: 90%;
     max-height: calc(100% - 116px);
-    bottom: 32px;
-    left: 4px;
+    top: 10px;
+    margin:0 auto;
+    right: 48px;
     z-index: 2;
     /* align-self: flex-end; */
     /* float: right; */
-    padding: 8px;
+    padding: 2px 8px;
 }
 
 .legend-sample {

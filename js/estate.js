@@ -10,16 +10,16 @@ var cFillNA = '#45454535';
 var cStroke = {
     avail: '#5cfb00',
     na: '#454545',
-//     ad: '#ff9800',
+    ad: '#ff9800',
     //TODO green for ad -- because of the icon
-    ad: '#5cfb00',
+//     ad: '#5cfb00',
     selected: '#00bcd4'
 };
 var cFill = {
     avail: '#2ccb0035',
     na: '#45454535',
-//     ad: '#ff980035',
-    ad: '#2ccb0035',
+    ad: '#ff980035',
+//     ad: '#2ccb0035',
     selected: '#00bcd435'
 };
 
@@ -39,7 +39,7 @@ var cStrokeWidth = {
 var cStat = {
     avail: 'Свободен',
     na: 'Занят',
-    ad: '<hr>',
+    ad: 'Объявление',
     selected: null
 };
 var cStatusColor = {
@@ -72,8 +72,12 @@ var polyProvider = (function() {
         var hCont = 'Участок № ' + pMetadata.number +
             ' | ' + pMetadata.area + 'м&#178 | ' + statusString;
 
-        var stroke = cStroke[selector];
-        var fill = cFill[selector];
+//         var stroke = cStroke[selector];
+//         var fill = cFill[selector];
+
+        
+        var stroke = (pMetadata.isAvailable || pMetadata.ad) ? cStroke['avail'] : cStroke['na'];
+        var fill = (pMetadata.isAvailable || pMetadata.ad) ? cFill['avail'] : cFill['na'];
         var width = cStrokeWidth[selector];
         var sStyle = cStrokeStyle[selector];
         var poly = new ymaps.Polygon(
@@ -154,7 +158,7 @@ var adProvider = (function() {
 //                     var rEstateNum = /№(\d*)/gi;
                     var rSqareMetres = /([мМ]\^?2)/gi;
                     var ads = text.split(/<hr\s?\/>\n*/);
-                    text = text.replace(rPhone, '<i class="material-icons"  style="vertical-align: middle;padding-bottom: 3px;">&#xE0CD;</i><b>$1</b>');
+                    text = text.replace(rPhone, '<i class="mat-ico-font-align material-icons">&#xE0CD;</i><b>$1</b>');
 //                     text = text.replace(rEstateNum, '<a href="#" class="estate-number" onclick="' + NUM_CLICKED_PLACEHOLDER + '($1)">№$1</a>');
                     text = text.replace(rSqareMetres, 'м<sup>2</sup>');
 
@@ -245,10 +249,10 @@ function addPolygonsToMap(polyMetadata) {
 }
 
 function animateToLira() {
-    var mapCenter = [55.21543484859789, 82.79498737895968];
-    myMap.setCenter(mapCenter);
-    myMap.setZoom(16);
-    return;
+    var mapCenter = [55.21661196704783, 82.79516775833135];
+//     myMap.setCenter(mapCenter);
+//     myMap.setZoom(16);
+//     return;
     myMap.setZoom(13, {
         duration: 1200
     }).then(function() {
