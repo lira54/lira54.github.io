@@ -154,7 +154,7 @@ var adProvider = (function() {
 //                     var rEstateNum = /№(\d*)/gi;
                     var rSqareMetres = /([мМ]\^?2)/gi;
                     var ads = text.split(/<hr\s?\/>\n*/);
-                    text = text.replace(rPhone, '<b>$1</b>');
+                    text = text.replace(rPhone, '<i class="material-icons"  style="vertical-align: middle;padding-bottom: 3px;">&#xE0CD;</i><b>$1</b>');
 //                     text = text.replace(rEstateNum, '<a href="#" class="estate-number" onclick="' + NUM_CLICKED_PLACEHOLDER + '($1)">№$1</a>');
                     text = text.replace(rSqareMetres, 'м<sup>2</sup>');
 
