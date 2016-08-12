@@ -233,9 +233,10 @@ function addPolygonsToMap(polyMetadata) {
         myMap.geoObjects.add(poly);
         //FIXME hack
 
+// TODO show Placemarks after animation is done, otherwise they look weirdly big
         if(val.ad) {
             // https://tech.yandex.ru/maps/jsbox/2.1/placemark_shape
-        var polygonLayout = ymaps.templateLayoutFactory.createClass('<div style="text-align:center; postion:relative;"><i style="color:#ff9800;position:absolute;top:-20px; font-size:24px;" class="material-icons">&#xE0C9;</i></div>');
+        var polygonLayout = ymaps.templateLayoutFactory.createClass('<div style="text-align:center; postion:relative;"><i style="color:#ff9800;position:absolute;top:-22px; font-size:24px;" class="material-icons">&#xE0C9;</i></div>');
         var placemark = new ymaps.Placemark(centerFromBounds(poly.geometry.getBounds()),
         null, {
             iconLayout: polygonLayout
