@@ -289,7 +289,6 @@ function init() {
         adProvider.loadAds(function(html, ads) {
             polyProvider.amendWithAds(polyMetadata, ads);
             html = html.replace(adProvider.NUM_CLICKED_PLACEHOLDER, 'selectPoly');
-            document.getElementById('ads-container').innerHTML = html;
             addPolygonsToMap(polyMetadata);
         });
 
