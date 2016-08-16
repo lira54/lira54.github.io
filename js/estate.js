@@ -12,14 +12,14 @@ var cStroke = {
     na: '#454545',
     ad: '#ff9800',
     //TODO green for ad -- because of the icon
-//     ad: '#5cfb00',
+    //     ad: '#5cfb00',
     selected: '#00bcd4'
 };
 var cFill = {
     avail: '#2ccb0035',
     na: '#45454535',
     ad: '#ff980035',
-//     ad: '#2ccb0035',
+    //     ad: '#2ccb0035',
     selected: '#00bcd435'
 };
 
@@ -84,8 +84,8 @@ var polyProvider = (function() {
         var hCont = 'Участок № ' + pMetadata.number +
             ' | ' + pMetadata.area + 'м&#178 | ' + statusString;
 
-//         var stroke = cStroke[selector];
-//         var fill = cFill[selector];
+        //         var stroke = cStroke[selector];
+        //         var fill = cFill[selector];
 
 
         var stroke = (pMetadata.isAvailable || pMetadata.ad) ? cStroke['avail'] : cStroke['na'];
@@ -93,20 +93,20 @@ var polyProvider = (function() {
         var width = cStrokeWidth[selector];
         var sStyle = cStrokeStyle[selector];
         var poly = new ymaps.Polygon(
-        pMetadata.vertices, {
-            balloonContent: bCont,
-            hintContent: hCont
-        }, {
-            strokeWidth: width,
-            strokeColor: stroke,
-            strokeStyle: sStyle,
-            fillColor: fill,
-            hasBalloon: true,
-            hasHint: true,
-            draggable: false,
-        });
+            pMetadata.vertices, {
+                balloonContent: bCont,
+                hintContent: hCont
+            }, {
+                strokeWidth: width,
+                strokeColor: stroke,
+                strokeStyle: sStyle,
+                fillColor: fill,
+                hasBalloon: true,
+                hasHint: true,
+                draggable: false,
+            });
         return {
-            poly: function (callback) {
+            poly: function(callback) {
                 callback(poly);
                 return this;
             },
@@ -120,11 +120,11 @@ var polyProvider = (function() {
                     iconShape: {
                         type: 'Rectangle',
                         coordinates: [
-                            [0,-24], [24, 0]
+                            [0, -24],
+                            [24, 0]
                         ]
                     }
-                }
-            );
+                });
                 callback(result);
                 return this;
             }
@@ -190,11 +190,11 @@ var adProvider = (function() {
                 type: 'output',
                 filter: function(text) {
                     var rPhone = /(\+\d(?:\s?-?\(?\d{3}\)?)(?:\s?-?\d){7}|(?:\d(?:\s?-?\d){6}))/gi;
-//                     var rEstateNum = /№(\d*)/gi;
+                    //                     var rEstateNum = /№(\d*)/gi;
                     var rSqareMetres = /([мМ]\^?2)/gi;
                     var ads = text.split(/<hr\s?\/>\n*/);
                     text = text.replace(rPhone, '<i class="mat-ico-font-align material-icons">&#xE0CD;</i><b>$1</b>');
-//                     text = text.replace(rEstateNum, '<a href="#" class="estate-number" onclick="' + NUM_CLICKED_PLACEHOLDER + '($1)">№$1</a>');
+                    //                     text = text.replace(rEstateNum, '<a href="#" class="estate-number" onclick="' + NUM_CLICKED_PLACEHOLDER + '($1)">№$1</a>');
                     text = text.replace(rSqareMetres, 'м<sup>2</sup>');
 
                     return text;
@@ -266,12 +266,12 @@ var adProvider = (function() {
 function addPolygonsToMap(polyMetadata) {
     polyMetadata.forEach(function(val, i, array) {
         var polyCenter;
-        polyProvider.fromMetadata(val).poly(function (ymPoly) {
+        polyProvider.fromMetadata(val).poly(function(ymPoly) {
             gPolygons[val.number] = ymPoly;
             myMap.geoObjects.add(ymPoly);
             polyCenter = centerFromBounds(ymPoly.geometry.getBounds());
         }).placemark(polyCenter, function(ymPlacemark) {
-            if(ymPlacemark) {
+            if (ymPlacemark) {
                 // TODO show Placemarks after animation is done, otherwise they look weirdly big
                 myMap.geoObjects.add(ymPlacemark);
             }
@@ -281,9 +281,9 @@ function addPolygonsToMap(polyMetadata) {
 
 function animateToLira() {
     var mapCenter = [55.21661196704783, 82.79516775833135];
-//     myMap.setCenter(mapCenter);
-//     myMap.setZoom(16);
-//     return;
+    //     myMap.setCenter(mapCenter);
+    //     myMap.setZoom(16);
+    //     return;
     myMap.setZoom(13, {
         duration: 1200
     }).then(function() {
