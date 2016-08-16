@@ -49,10 +49,22 @@ var cStatusColor = {
     selected: cStroke.selected
 };
 
+function centerFromBounds(bounds) {
+    return [(bounds[0][0] + bounds[1][0]) / 2, (bounds[0][1] + bounds[1][1]) / 2];
+}
+
 var polyProvider = (function() {
+    var _polygonLayout;
 
-    function polyFromMetadata(pMetadata) {
+    function init() {
+        _polygonLayout = ymaps.templateLayoutFactory.createClass('<div class="ad_placemark_layout"><i class="material-icons">&#xE0C9;</i></div>');
+    }
 
+    function fromMetadata(pMetadata) {
+        if (!_polygonLayout) {
+            // lazy, to make sure ymaps is ready
+            init();
+        }
         // TODO selected
         var selector = 'na';
         if (pMetadata.isOnSale) {
@@ -75,27 +87,50 @@ var polyProvider = (function() {
 //         var stroke = cStroke[selector];
 //         var fill = cFill[selector];
 
-        
+
         var stroke = (pMetadata.isAvailable || pMetadata.ad) ? cStroke['avail'] : cStroke['na'];
         var fill = (pMetadata.isAvailable || pMetadata.ad) ? cFill['avail'] : cFill['na'];
         var width = cStrokeWidth[selector];
         var sStyle = cStrokeStyle[selector];
         var poly = new ymaps.Polygon(
-            pMetadata.vertices, {
-                balloonContent: bCont,
-                hintContent: hCont
-            }, {
-                strokeWidth: width,
-                strokeColor: stroke,
-                strokeStyle: sStyle,
-                fillColor: fill,
-                hasBalloon: true,
-                hasHint: true,
-                draggable: false,
+        pMetadata.vertices, {
+            balloonContent: bCont,
+            hintContent: hCont
+        }, {
+            strokeWidth: width,
+            strokeColor: stroke,
+            strokeStyle: sStyle,
+            fillColor: fill,
+            hasBalloon: true,
+            hasHint: true,
+            draggable: false,
+        });
+        return {
+            poly: function (callback) {
+                callback(poly);
+                return this;
+            },
+            // https://tech.yandex.ru/maps/jsbox/2.1/placemark_shape
+            placemark: function(position, callback) {
+                var result = !pMetadata.ad ? null : new ymaps.Placemark(position, {
+                    balloonContent: bCont,
+                    hintContent: hCont
+                }, {
+                    iconLayout: _polygonLayout,
+                    iconShape: {
+                        type: 'Rectangle',
+                        coordinates: [
+                            [0,-24], [24, 0]
+                        ]
+                    }
+                }
+            );
+                callback(result);
+                return this;
             }
-        );
 
-        return poly;
+        }
+
     }
 
     function loadPolygons(callback) {
@@ -125,7 +160,7 @@ var polyProvider = (function() {
     return {
         loadPolygons: loadPolygons,
         amendWithAds: amendWithAds,
-        polyFromMetadata: polyFromMetadata
+        fromMetadata: fromMetadata
     }
 })();
 
@@ -205,6 +240,8 @@ var adProvider = (function() {
             callback(html, ads);
             // document.getElementById('info_panel').innerHTML = responseText;
             // console.log(responseText);
+        }).catch(function(err) {
+            console.log(err);
         });
     }
 
@@ -228,24 +265,17 @@ var adProvider = (function() {
 
 function addPolygonsToMap(polyMetadata) {
     polyMetadata.forEach(function(val, i, array) {
-        var poly = polyProvider.polyFromMetadata(val);
-        gPolygons[val.number] = poly;
-        myMap.geoObjects.add(poly);
-        //FIXME hack
-
-// TODO show Placemarks after animation is done, otherwise they look weirdly big
-        if(val.ad) {
-            // https://tech.yandex.ru/maps/jsbox/2.1/placemark_shape
-        var polygonLayout = ymaps.templateLayoutFactory.createClass('<div style="text-align:center; postion:relative;"><i style="color:#ff9800;position:absolute;top:-22px; font-size:24px;" class="material-icons">&#xE0C9;</i></div>');
-        var placemark = new ymaps.Placemark(centerFromBounds(poly.geometry.getBounds()),
-        null, {
-            iconLayout: polygonLayout
-            // Описываем фигуру активной области "Полигон".
-           
-        }
-        );
-        myMap.geoObjects.add(placemark);
-        }
+        var polyCenter;
+        polyProvider.fromMetadata(val).poly(function (ymPoly) {
+            gPolygons[val.number] = ymPoly;
+            myMap.geoObjects.add(ymPoly);
+            polyCenter = centerFromBounds(ymPoly.geometry.getBounds());
+        }).placemark(polyCenter, function(ymPlacemark) {
+            if(ymPlacemark) {
+                // TODO show Placemarks after animation is done, otherwise they look weirdly big
+                myMap.geoObjects.add(ymPlacemark);
+            }
+        });
     });
 }
 
@@ -299,10 +329,6 @@ function init() {
 
     });
 
-}
-
-function centerFromBounds(bounds) {
-    return [(bounds[0][0] + bounds[1][0]) / 2, (bounds[0][1] + bounds[1][1]) / 2];
 }
 
 function selectPoly(numref) {
