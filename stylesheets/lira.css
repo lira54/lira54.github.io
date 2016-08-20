@@ -216,7 +216,7 @@ span.reverse {
 }
 
 .lira-header.lira-main-header {
-    height: calc(66%+ 48px/2);
+    height: calc(66% + 48px/2);
 }
 
 .unset-height {
