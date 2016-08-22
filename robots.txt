@@ -1,2 +1,2 @@
 Sitemap: https://lira54.ru/sitemap.xml
-Sitemap: https://lira54.github.io/sitemap.xml
+Sitemap: https://lira54.github.io/sitemap-gh.xml
