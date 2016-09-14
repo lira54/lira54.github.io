@@ -2010,7 +2010,7 @@
     {
         "number":67,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1060,
         "vertices":[
             [
