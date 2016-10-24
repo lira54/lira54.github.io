@@ -150,7 +150,7 @@ span.reverse {
     /* width: 60%; */
     /* margin-right: 24px; */
     text-align: left;
-    /* flex-grow: 6; */
+    flex-grow: 1;
     /* align-self: flex-end; */
 }
 
