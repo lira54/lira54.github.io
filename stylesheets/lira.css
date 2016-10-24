@@ -149,7 +149,7 @@ span.reverse {
     /* margin-top: 16px; */
     /* width: 60%; */
     /* margin-right: 24px; */
-    text-align: left;
+    text-align: right;
     flex-grow: 1;
     /* align-self: flex-end; */
 }
