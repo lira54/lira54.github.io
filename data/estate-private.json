@@ -512,7 +512,7 @@
     {
         "number":18,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":1200,
         "vertices":[
             [
