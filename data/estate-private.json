@@ -2506,7 +2506,7 @@
     {
         "number":83,
         "status":null,
-        "isAvailable":false,
+        "isAvailable":true,
         "area":1200,
         "vertices":[
             [
