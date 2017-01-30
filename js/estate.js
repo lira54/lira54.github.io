@@ -3,13 +3,13 @@ var myMap;
 var gPolygons = {};
 
 var cStrokeAvail = '#5cfb00';
-var cStrokeNA = '#454545';
+var cStrokeNA = '#757575';
 var cFillAvail = '#2ccb0035';
-var cFillNA = '#45454535';
+var cFillNA = '#75757535';
 
 var cStroke = {
     avail: '#5cfb00',
-    na: '#454545',
+    na: '#757575',
     ad: '#ff9800',
     //TODO green for ad -- because of the icon
     //     ad: '#5cfb00',
@@ -17,7 +17,7 @@ var cStroke = {
 };
 var cFill = {
     avail: '#2ccb0035',
-    na: '#45454535',
+    na: '#75757535',
     ad: '#ff980035',
     //     ad: '#2ccb0035',
     selected: '#00bcd435'
@@ -32,7 +32,7 @@ var cStrokeStyle = {
 };
 var cStrokeWidth = {
     avail: 2,
-    na: 1,
+    na: 2,
     ad: 2,
     selected: 2
 };
