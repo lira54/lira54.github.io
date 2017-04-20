@@ -1946,7 +1946,7 @@
     {
         "number":65,
         "status":null,
-        "isAvailable":false,
+        "isAvailable":true,
         "area":1105,
         "vertices":[
             [
@@ -1980,7 +1980,7 @@
     {
         "number":66,
         "status":null,
-        "isAvailable":false,
+        "isAvailable":true,
         "area":1162,
         "vertices":[
             [
