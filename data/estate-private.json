@@ -512,7 +512,7 @@
     {
         "number":18,
         "status":null,
-        "isAvailable":false,
+        "isAvailable":true,
         "area":1200,
         "vertices":[
             [
@@ -1548,7 +1548,7 @@
     {
         "number":52,
         "status":null,
-        "isAvailable":true,
+        "isAvailable":false,
         "area":747,
         "vertices":[
             [
