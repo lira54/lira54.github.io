@@ -2310,7 +2310,7 @@
     {
         "number":77,
         "status":null,
-        "isAvailable":false,
+        "isAvailable":true,
         "area":1200,
         "vertices":[
             [
