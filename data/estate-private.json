@@ -2430,7 +2430,7 @@
     {
         "number":81,
         "status":null,
-        "isAvailable":false,
+        "isAvailable":true,
         "area":801,
         "vertices":[
             [
