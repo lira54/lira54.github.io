@@ -280,7 +280,7 @@ function addPolygonsToMap(polyMetadata) {
 }
 
 function animateToLira() {
-    var mapCenter = [55.21661196704783, 82.79516775833135];
+    var mapCenter = [55.21861196704783, 82.79516775833135];
     //     myMap.setCenter(mapCenter);
     //     myMap.setZoom(16);
     //     return;
